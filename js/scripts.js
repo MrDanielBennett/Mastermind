@@ -42,6 +42,7 @@ var correctColors = 0;
 var testArray = [];
 
 function exactMatch(array1, array2)  {
+  testArray = [];
   var exactMatch = 0;
   if(array1.length != array2.length) {
     console.log("Those arrays are different lengths");
@@ -62,5 +63,21 @@ function exactMatch(array1, array2)  {
   return exactMatch;
 }
 
+function colorMatch(array1, array2) {
+  var tempMatch = 0;
 
-var temp
+  array1.forEach(function(index) {
+
+    for(var i = 0; i < array2.length; i++) {
+      if(index === array2[i]) {
+        tempMatch += 1;
+
+        console.log("i = " + i);
+        console.log(index);
+      }
+    }
+  });
+  console.log(tempMatch);
+  console.log("Your test array reads: " + testArray);
+  console.log("You match the colors of " + tempMatch + " tiles.");
+};
