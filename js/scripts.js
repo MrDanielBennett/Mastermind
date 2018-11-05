@@ -25,11 +25,11 @@ function MasterConfiguration() {
   var color = ["red", "green", "blue", "yellow", "purple", "orange"];
   var c;
   var masterConfig=[];
-  for (c=1; c<=5; ++c)
+  for (c=1; c<=4; ++c)
   {
-    var i = Math.floor((Math.random() * (5-c)) + 1);
+    var i = Math.floor((Math.random() * (4-c)));
     masterConfig.push(color[i]);
-    color[i] = color[5-c];
+    color[i] = color[4-c];
 
   }
       return (masterConfig);
