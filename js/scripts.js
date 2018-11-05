@@ -36,18 +36,6 @@ function MasterConfiguration() {
 }
 
 
-
-
-  // masterConfig = the method to generate the random config.
-
-//
-// MasterConfiguration.prototype.generateMaster = function(){
-//   // var masterConfig = []
-//
-//
-//   console.log(masterConfig);
-// }
-
 // User Interface Logic
 
 $(document).ready(function(){
