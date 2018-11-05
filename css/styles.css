@@ -1,6 +1,8 @@
 #start-screen {
   margin-top: 25%;
   text-align: center;
+}
+#game-board {
   display: none;
 }
 #red {

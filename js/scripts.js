@@ -49,6 +49,25 @@ function MasterConfiguration() {
 // }
 
 // User Interface Logic
+
 $(document).ready(function(){
+  $("#start-button").click(function(event){
+    $("#start-screen").hide();
+    $("#game-board").fadeIn();
+  });
+
+  $("#buttons").click(function(event){
+    var input = [$("#buttons").val()];
+
+    console.log (input)
+  })
+
+
+
+
+
+
+
+
 
 });
