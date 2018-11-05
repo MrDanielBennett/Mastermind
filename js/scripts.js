@@ -8,29 +8,40 @@ function Mastermind() {
   this.tempPlayerGuess = [];
   this.masterConfig = ['red', 'yellow', 'green', 'blue'];
   // This will store the player's guess that's input in the UI.
-  // call master configuration.
+  this.masterConfig = masterConfig
 }
 
-// Mastermind.prototype.checkForWin() = function(){
-//   // Evaluate the player guess against the master config.
-// }
+
+Mastermind.prototype.checkForWin = function(){
+  // Evaluate the player guess against the master config.
+}
+
+
+Mastermind.prototype.currentTurn = function(){
+  // Read current Mastermind turn count and add 1.
+}
+function MasterConfiguration() {
+  debugger
+  var color = ["red", "green", "blue", "yellow", "purple", "orange"];
+  var c;
+  var masterConfig=[];
+  for (c=1; c<=4; ++c)
+  {
+    var i = Math.floor((Math.random() * (4-c)));
+    masterConfig.push(color[i]);
+    color[i] = color[4-c];
+
+  }
+      return (masterConfig);
+}
+
 
 Mastermind.prototype.pegResult = function(){
   console.log(exactMatch(this.playerGuess, this.masterConfig, this.tempPlayerGuess));
   console.log(colorMatch(this.tempPlayerGuess, this.masterConfig));
 }
 
-// Mastermind.prototype.currentTurn = function(){
-//   // Read current Mastermind turn count and add 1.
-// }
-//
-// function MasterConfiguration() {
-//   // masterConfig = the method to generate the random config.
-// }
-//
-// MasterConfiguration.prototype.generateMaster = function(){
-//   // This will generate and return a random set of 4 colors (from a selection of 6 colors).
-// }
+
 
 function exactMatch(array1, array2, tempPlayerGuess)  {
 
@@ -65,7 +76,27 @@ function colorMatch(array1, array2) {
    return colorMatch;
 }
 
+
 // User Interface Logic
+
 $(document).ready(function(){
+  $("#start-button").click(function(event){
+    $("#start-screen").hide();
+    $("#game-board").fadeIn();
+  });
+
+  $("#buttons").click(function(event){
+    var input = [$("#buttons").val()];
+
+    console.log (input)
+  })
+
+
+
+
+
+
+
+
 
 });

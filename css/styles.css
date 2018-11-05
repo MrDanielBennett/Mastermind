@@ -1,0 +1,43 @@
+#start-screen {
+  margin-top: 25%;
+  text-align: center;
+}
+#game-board {
+  display: none;
+}
+#red {
+  background-color: red;
+  height: 50px;
+  width: 50px;
+  border-radius: 100%;
+}
+#green {
+  background-color: green;
+  height: 50px;
+  width: 50px;
+  border-radius: 100%;
+}
+#blue {
+  background-color: blue;
+  height: 50px;
+  width: 50px;
+  border-radius: 100%;
+}
+#yellow {
+  background-color: yellow;
+  height: 50px;
+  width: 50px;
+  border-radius: 100%;
+}
+#purple {
+  background-color: purple;
+  height: 50px;
+  width: 50px;
+  border-radius: 100%;
+}
+#orange {
+  background-color: orange;
+  height: 50px;
+  width: 50px;
+  border-radius: 100%;
+}

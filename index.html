@@ -1,16 +1,35 @@
 <!DOCTYPE html>
 <html lang="en" dir="ltr">
-  <head>
-    <link rel="stylesheet" href="css/bootstrap.css">
-    <link rel="stylesheet" href="css/styles.css">
-    <script type="text/javascript" src="js/jquery-3.3.1.js"></script>
-    <script type="text/javascript" src="js/scripts.js"></script>
-    <title>Mastermind</title>
-  </head>
-  <body>
-    <div class="container">
-      <h1>Mastermind</h1>
-
+<head>
+  <link rel="stylesheet" href="css/bootstrap.css">
+  <link rel="stylesheet" href="css/styles.css">
+  <script type="text/javascript" src="js/jquery-3.3.1.js"></script>
+  <script type="text/javascript" src="js/scripts.js"></script>
+  <title>Mastermind</title>
+</head>
+<body>
+  <div class="container">
+    <div id="start-screen">
+      <div class="jumbotron">
+        <h1>Mastermind</h1>
+        <button type="button" id="start-button">Start Game!</button>
+      </div>
     </div>
-  </body>
+    <div id="game-board">
+      <div class="jumbotron">
+        <h1>Mastermind</h1>
+      </div>
+      <form id="buttons">
+      <button type="button" id="red" value="red"></button>
+      <input type="button" id="green" value="green"></input>
+      <input type="button" id="blue" value="blue"></input>
+      <input type="button" id="yellow" value="yellow"></input>
+      <input type="button" id="purple" value="purple"></input>
+      <input type="button" id="orange" value="orange"></input>
+      </form>
+    </div>
+
+
+  </div>
+</body>
 </html>
