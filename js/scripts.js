@@ -8,25 +8,41 @@ function Mastermind() {
   // call master configuration.
 }
 
-Mastermind.prototype.checkForWin() = function(){
+Mastermind.prototype.checkForWin = function(){
   // Evaluate the player guess against the master config.
 }
 
-Mastermind.prototype.pegResult() = function(){
+Mastermind.prototype.pegResult = function(){
   // Evaluate the player guess against master config and return # of matching colors and return # of matching color + position.
 }
 
-Mastermind.prototype.currentTurn() = function(){
+Mastermind.prototype.currentTurn = function(){
   // Read current Mastermind turn count and add 1.
 }
 
 function MasterConfiguration() {
+  var color = ["red", "green", "blue", "yellow", "purple", "orange"];
+  var array=[];
+  var c;
+  for (c=0; c<=4; ++c)
+  {
+    var i = Math.floor((Math.random() * (6-c)) + 1);
+    array.push(color[i]);
+    color[i] = color[6-c];
+  }
+
+
+
+ // this.masterConfig = [Math.floor((Math.random(4) * 5))];
   // masterConfig = the method to generate the random config.
 }
-
-MasterConfiguration.prototype.generateMaster() = function(){
-  // This will generate and return a random set of 4 colors (from a selection of 6 colors).
-}
+//
+// MasterConfiguration.prototype.generateMaster = function(){
+//   // var masterConfig = []
+//
+//
+//   console.log(masterConfig);
+// }
 
 // User Interface Logic
 $(document).ready(function(){
