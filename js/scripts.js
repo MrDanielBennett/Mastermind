@@ -5,7 +5,7 @@ function Mastermind() {
   // This is going to count the number of turns a player makes.
   // playerGuess
   // This will store the player's guess that's input in the UI.
-  // call master configuration.
+  this.masterConfig = masterConfig
 }
 
 Mastermind.prototype.checkForWin = function(){
@@ -21,21 +21,25 @@ Mastermind.prototype.currentTurn = function(){
 }
 
 function MasterConfiguration() {
+  debugger
   var color = ["red", "green", "blue", "yellow", "purple", "orange"];
-  var array=[];
   var c;
-  for (c=0; c<=4; ++c)
+  var masterConfig=[];
+  for (c=1; c<=5; ++c)
   {
-    var i = Math.floor((Math.random() * (6-c)) + 1);
-    array.push(color[i]);
-    color[i] = color[6-c];
+    var i = Math.floor((Math.random() * (5-c)) + 1);
+    masterConfig.push(color[i]);
+    color[i] = color[5-c];
+
   }
-
-
-
- // this.masterConfig = [Math.floor((Math.random(4) * 5))];
-  // masterConfig = the method to generate the random config.
+      return (masterConfig);
 }
+
+
+
+
+  // masterConfig = the method to generate the random config.
+
 //
 // MasterConfiguration.prototype.generateMaster = function(){
 //   // var masterConfig = []
