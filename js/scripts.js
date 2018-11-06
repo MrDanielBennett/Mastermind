@@ -4,11 +4,21 @@ var mastermind = new Mastermind();
 function Mastermind() {
   // turnCount = 0;
   // This is going to count the number of turns a player makes.
-  this.playerGuess = ['red', 'blue', 'green', 'yellow'];
+  this.playerGuess = [];
   this.tempPlayerGuess = [];
-  this.masterConfig = ['red', 'yellow', 'green', 'blue'];
+  this.tempBlackPeg = 0;
+  this.tempWhitePeg = 0;
+  this.masterConfig = masterConfiguration();
+  this.tempMasterConfig = [];
   // This will store the player's guess that's input in the UI.
-  this.masterConfig = masterConfig
+}
+
+Mastermind.prototype.endTurn = function() {
+  this.playerGuess = [];
+  this.tempPlayerGuess = [];
+  this.tempMasterConfig = [];
+  this.tempBlackPeg = 0;
+  this.tempWhitePeg = 0;
 }
 
 
@@ -20,8 +30,7 @@ Mastermind.prototype.checkForWin = function(){
 Mastermind.prototype.currentTurn = function(){
   // Read current Mastermind turn count and add 1.
 }
-function MasterConfiguration() {
-  debugger
+function masterConfiguration() {
   var color = ["red", "green", "blue", "yellow", "purple", "orange"];
   var c;
   var masterConfig=[];
@@ -37,13 +46,13 @@ function MasterConfiguration() {
 
 
 Mastermind.prototype.pegResult = function(){
-  console.log(exactMatch(this.playerGuess, this.masterConfig, this.tempPlayerGuess));
-  console.log(colorMatch(this.tempPlayerGuess, this.masterConfig));
+  console.log(exactMatch(this.playerGuess, this.masterConfig, this.tempPlayerGuess, this.tempMasterConfig));
+  console.log(colorMatch(this.tempPlayerGuess, this.tempMasterConfig));
 }
 
 
 
-function exactMatch(array1, array2, tempPlayerGuess)  {
+function exactMatch(array1, array2, tempPlayerGuess, tempMasterConfig)  {
 
   var exactMatch = 0;
 
@@ -53,12 +62,15 @@ function exactMatch(array1, array2, tempPlayerGuess)  {
     for(var i = 0; i < array1.length; i++) {
       if(array1[i] === array2[i]) {
         exactMatch += 1;
-        tempPlayerGuess.push("match");
+        tempPlayerGuess.push("GuessMatch");
+        tempMasterConfig.push("MasterMatch");
       } else {
         tempPlayerGuess.push(array1[i]);
+        tempMasterConfig.push(array2[i]);
       }
     }
   }
+  mastermind.tempBlackPeg = exactMatch;
   return exactMatch;
 }
 
@@ -73,30 +85,62 @@ function colorMatch(array1, array2) {
       tempMasterArray.splice(splicePoint,1,'colormatch');
     }
    });
+   mastermind.tempWhitePeg = colorMatch;
    return colorMatch;
 }
 
 
 // User Interface Logic
+var gameArray = []
 
 $(document).ready(function(){
+
   $("#start-button").click(function(event){
+    event.preventDefault();
     $("#start-screen").hide();
     $("#game-board").fadeIn();
   });
 
-  $("#buttons").click(function(event){
-    var input = [$("#buttons").val()];
 
-    console.log (input)
+  // $("body").on("click", "button", function(event) {
+  //   event.preventDefault();
+  //
+  //   var input = $(this).val();
+  //   gameArray.push(input);
+  //   console.log(this.value);
+  //   console.log("YOU DID IT");
+  // })
+
+  $("form#buttons").on("click", "button", function(){
+    console.log(this.value);
+    mastermind.playerGuess.push(this.value);
+
+
+    if (mastermind.playerGuess.length >= 4) {
+      $("button.colors").prop("disabled",true);
+    }
+
+});
+
+  $("#submit").click(function(){
+    mastermind.pegResult();
+    $("ul#masterGuesses").append("<li>" + mastermind.playerGuess +  " (" + mastermind.tempBlackPeg + " / " + mastermind.tempWhitePeg + ") </li>");
+    console.log(mastermind.tempPlayerGuess);
+    console.log(mastermind.tempMasterConfig);
+    mastermind.endTurn();
+    $("button.colors").prop("disabled",false);
   })
 
 
 
 
-
-
+  $("#clear").click(function(){
+    mastermind.playerGuess = [];
+    console.log(mastermind.playerGuess);
+  })
 
 
 
 });
+
+// add clear array function
