@@ -120,7 +120,7 @@ $(document).ready(function(){
     mastermind.winCheck();
     console.log(mastermind.winCheck());
     for (var i = 0; i < mastermind.tempBlackPeg; i++){
-      $("#peg" + mastermind.currentTurn + "-" + i).css("background-color", "black");
+      $("#peg" + mastermind.currentTurn + "-" + i).css("background-color", "#CBA72D");
     }
     for (var i = mastermind.tempBlackPeg; i < mastermind.tempWhitePeg + mastermind.tempBlackPeg; i ++) {
       $("#peg" + mastermind.currentTurn + "-" + i).addClass("whitePeg");
