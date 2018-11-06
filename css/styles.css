@@ -2,9 +2,17 @@
   margin-top: 25%;
   text-align: center;
 }
-#game-board {
+#game {
   display: none;
 }
+
+.red {
+  background-color: red;
+  height: 50px;
+  width: 50px;
+  border-radius: 100%;
+}
+
 #red {
   background-color: red;
   height: 50px;
@@ -40,4 +48,18 @@
   height: 50px;
   width: 50px;
   border-radius: 100%;
+}
+
+.emptyCircle {
+  background-color: gray;
+  height: 50px;
+  width: 50px;
+  border-radius: 100%;
+  display: inline-block;
+}
+
+#board {
+  background-color: brown;
+  text-align: center;
+  display: none;
 }

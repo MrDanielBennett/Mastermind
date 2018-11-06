@@ -2,14 +2,14 @@
 var mastermind = new Mastermind();
 
 function Mastermind() {
-  // turnCount = 0;
+  this.currentTurn = 0;
   // This is going to count the number of turns a player makes.
   this.playerGuess = [];
   this.tempPlayerGuess = [];
   this.tempBlackPeg = 0;
   this.tempWhitePeg = 0;
   this.masterConfig = masterConfiguration();
-  this.tempMasterConfig = [];
+  this.tempMasterConfig = []
   // This will store the player's guess that's input in the UI.
 }
 
@@ -19,6 +19,7 @@ Mastermind.prototype.endTurn = function() {
   this.tempMasterConfig = [];
   this.tempBlackPeg = 0;
   this.tempWhitePeg = 0;
+  this.currentTurn += 1
 }
 
 
@@ -48,6 +49,7 @@ function masterConfiguration() {
 Mastermind.prototype.pegResult = function(){
   console.log(exactMatch(this.playerGuess, this.masterConfig, this.tempPlayerGuess, this.tempMasterConfig));
   console.log(colorMatch(this.tempPlayerGuess, this.tempMasterConfig));
+
 }
 
 
@@ -98,7 +100,8 @@ $(document).ready(function(){
   $("#start-button").click(function(event){
     event.preventDefault();
     $("#start-screen").hide();
-    $("#game-board").fadeIn();
+    $("#game").fadeIn();
+  
   });
 
 
@@ -114,12 +117,10 @@ $(document).ready(function(){
   $("form#buttons").on("click", "button", function(){
     console.log(this.value);
     mastermind.playerGuess.push(this.value);
-
-
+    $("#stagingBoard-" + mastermind.playerGuess.indexOf(this.value)).css("background-color", this.value);
     if (mastermind.playerGuess.length >= 4) {
       $("button.colors").prop("disabled",true);
     }
-
 });
 
   $("#submit").click(function(){
@@ -127,8 +128,15 @@ $(document).ready(function(){
     $("ul#masterGuesses").append("<li>" + mastermind.playerGuess +  " (" + mastermind.tempBlackPeg + " / " + mastermind.tempWhitePeg + ") </li>");
     console.log(mastermind.tempPlayerGuess);
     console.log(mastermind.tempMasterConfig);
-    mastermind.endTurn();
     $("button.colors").prop("disabled",false);
+
+    for ( var i= 0; i <mastermind.playerGuess.length; i++){
+        $("#" + mastermind.currentTurn + "-" + i).css("background-color", mastermind.playerGuess[i]);
+    }
+    for (let i =0; i < 4; i ++){
+      $("#stagingBoard-" + i).css("background-color", "gray");
+    }
+    mastermind.endTurn();
   })
 
 
@@ -137,8 +145,13 @@ $(document).ready(function(){
   $("#clear").click(function(){
     mastermind.playerGuess = [];
     console.log(mastermind.playerGuess);
-  })
 
+    for (let i =0; i < 4; i ++){
+      $("#stagingBoard-" + i).css("background-color", "gray");
+    }
+
+  })
+// for (var i = 0; i < 4; i++){
 
 
 });
