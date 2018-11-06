@@ -1,4 +1,8 @@
 // Business Logic
+
+
+
+
 var mastermind = new Mastermind();
 
 function Mastermind() {
@@ -84,12 +88,60 @@ var gameArray = []
 
 $(document).ready(function(){
 
+
+  var seconds = 1;
+
+
+  var gameTimer = setInterval(function() {
+    seconds += .01;
+    $("#playTimer").text(seconds.toFixed(2));
+
+    if(seconds > 10) {
+    $("#playTimer").css("color", "red");
+    }
+
+    if(seconds > 100) {
+      clearInterval(gameTimer);
+    }
+  }, 10);
+
+  function resetGame() {
+    for ( var i= 0; i < 12; i++){
+      for( var z=0; z < 4; z++) {
+        $("#" + i + "-" + z).css("background-color", 'grey');
+        $("#peg" + i + "-" + z).css("background-color", '#484848');
+        $("#peg" + i + "-" + z).removeClass("whitePeg");
+      }
+    }
+    mastermind.playerGuess = [];
+    $("button.colors").prop("disabled",false);
+    for (let i =0; i < 4; i ++){
+      $("#stagingBoard-" + i).css("background-color", "gray");
+    }
+  }
+
+  $("#resetGame").click(function(event){
+    event.preventDefault();
+    resetGame();
+  });
+
+  $("#cheatButton").click(function(event){
+    event.preventDefault();
+    $("#stagingBoard-" + mastermind.playerGuess.length).css("background-color", mastermind.masterConfig[(mastermind.playerGuess.length)]);
+    if (mastermind.playerGuess.length >= 4) {
+      $("button.colors").prop("disabled",true);
+    }
+    mastermind.playerGuess.push(mastermind.masterConfig[(mastermind.playerGuess.length)]);
+
+  });
+
   $("#start-button").click(function(event){
     event.preventDefault();
     $("#start-screen").hide();
     $("#game").fadeIn();
 
   });
+
 
   $("form#buttons").on("click", "button", function(){
     console.log(this.value);
@@ -98,7 +150,7 @@ $(document).ready(function(){
       $("button.colors").prop("disabled",true);
     }
     mastermind.playerGuess.push(this.value);
-});
+  });
 
   $("#submit").click(function(){
     if (mastermind.playerGuess.length < 4){
@@ -123,23 +175,9 @@ $(document).ready(function(){
     }
     mastermind.endTurn();
    }
-  })
+ });
 
 
-//
-// reset game
-// sets game elements to zero
-// keeps win count
-// initialized new master configuration
-// clears all 12 turn rows back to gray
-
-function resetGame() {
-  for ( var i= 1; i <= 12; i++){
-    for( var z=1; z <= 4; z++) {
-      $("#" + i + "-" + i).css("background-color", 'grey');
-    }
-  }
-}
 
   $("#clear").click(function(){
     mastermind.playerGuess = [];
