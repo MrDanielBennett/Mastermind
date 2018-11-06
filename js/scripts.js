@@ -17,9 +17,10 @@ function Mastermind() {
 
 Mastermind.prototype.winCheck = function(){
     if (this.tempBlackPeg === 4){
-      return "win";
+      $("#win-modal").show();
     }else if (this.currentTurn === 11) {
-      return "lose"
+      $("#lose-modal").show();
+      $("#game").hide();
     }
 
 }
