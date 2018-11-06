@@ -12,12 +12,11 @@ function Mastermind() {
 }
 
 Mastermind.prototype.winCheck = function(){
-    if (this.tempBlackPeg === 4){
-      return "win";
-    }else if (this.currentTurn === 11) {
-      return "lose"
-    }
-
+  if (this.tempBlackPeg === 4){
+    return "win";
+  } else if (this.currentTurn === 11) {
+    return "lose"
+  }
 }
 
 Mastermind.prototype.endTurn = function() {
@@ -35,7 +34,7 @@ function masterConfiguration() {
   var masterConfig=[];
   for (c=1; c<=4; ++c)
   {
-    var i = Math.floor((Math.random() * (4-c)));
+    var i = Math.floor((Math.random() * 6));
     masterConfig.push(color[i]);
     color[i] = color[4-c];
   }
@@ -120,7 +119,7 @@ $(document).ready(function(){
     mastermind.winCheck();
     console.log(mastermind.winCheck());
     for (var i = 0; i < mastermind.tempBlackPeg; i++){
-      $("#peg" + mastermind.currentTurn + "-" + i).css("background-color", "#CBA72D");
+      $("#peg" + mastermind.currentTurn + "-" + i).css("background-color", "#FFD700");
     }
     for (var i = mastermind.tempBlackPeg; i < mastermind.tempWhitePeg + mastermind.tempBlackPeg; i ++) {
       $("#peg" + mastermind.currentTurn + "-" + i).addClass("whitePeg");
