@@ -1,16 +1,45 @@
+/* @font-face {
+    font-family: 'metroregular';
+    src: url('Metro-webfont.eot');
+    src: url('Metro-webfont.eot?#iefix') format('embedded-opentype'),
+         url('Metro-webfont.woff2') format('woff2'),
+         url('Metro-webfont.woff') format('woff'),
+         url('Metro-webfont.ttf') format('truetype'),
+         url('Metro-webfont.svg#metroregular') format('svg');
+    font-weight: normal;
+    font-style: normal;
+
+} */
+
+h1 {
+  /* font-family: metroregular; */
+  font-size: 75px;
+  color: white;
+}
+
+body {
+  background-color: black;
+}
+
+#start-button {
+  background-color: blue;
+  font-size: 20px;
+  color: white;
+  border: none;
+  padding: 20px;
+  margin-top: 20px;
+}
+
+#start-button:hover {
+  background-color: gray;
+}
+
 #start-screen {
   margin-top: 25%;
   text-align: center;
 }
 #game {
   display: none;
-}
-
-.red {
-  background-color: red;
-  height: 50px;
-  width: 50px;
-  border-radius: 100%;
 }
 
 #red {
@@ -64,7 +93,7 @@
 }
 
 .pegCircle {
-  background-color: lightgray;
+  background-color: #484848;
   height: 15px;
   width: 15px;
   border-radius: 100%;
@@ -72,7 +101,7 @@
 }
 
 .whitePeg {
-  border: 1px solid black;
+  border: 3px solid #00FF00;
   background-color: white;
 }
 
