@@ -8,33 +8,104 @@
   <title>Mastermind</title>
 </head>
 <body>
-  <div class="container">
-    <div id="start-screen">
-      <div class="jumbotron">
-        <h1>Mastermind</h1>
-        <button type="button" id="start-button">Start Game!</button>
+    <div class="container">
+      <div id="start-screen">
+        <div class="jumbotron">
+          <h1>Mastermind</h1>
+          <button type="button" id="start-button">Start Game!</button>
+        </div>
       </div>
+      <div id="game">
+        <div id="playersChoice">
+          <div class="jumbotron">
+            <h1>Mastermind</h1>
+          </div>
+          <form id="buttons">
+            <button type="button" class="colors" id="red" value="red"></button>
+            <button type="button" class="colors" id="green" value="green"></button>
+            <button type="button" class="colors" id="blue" value="blue"></button>
+            <button type="button" class="colors" id="yellow" value="yellow"></button>
+            <button type="button" class="colors" id="purple" value="purple"></button>
+            <button type="button" class="colors" id="orange" value="orange"></button>
+          </form>
+          <button type="button" id="clear">Clear</button>
+          <button type="button" id="submit">submit</button>
+        </div>
+        <ul id="masterGuesses">
+        </ul>
+        <div class="gameBoard">
+          <div class="row">
+            <div id="9-0"class="emptyCircle"></div>
+            <div id="9-1"class="emptyCircle"></div>
+            <div id="9-2"class="emptyCircle"></div>
+            <div id="9-3"class="emptyCircle"></div>
+          </div>
+          <div class="row">
+            <div id="8-0"class="emptyCircle"></div>
+            <div id="8-1"class="emptyCircle"></div>
+            <div id="8-2"class="emptyCircle"></div>
+            <div id="8-3"class="emptyCircle"></div>
+          </div>
+          <div class="row">
+            <div id="7-0"class="emptyCircle"></div>
+            <div id="7-1"class="emptyCircle"></div>
+            <div id="7-2"class="emptyCircle"></div>
+            <div id="7-3"class="emptyCircle"></div>
+          </div>
+          <div class="row">
+            <div id="6-0"class="emptyCircle"></div>
+            <div id="6-1"class="emptyCircle"></div>
+            <div id="6-2"class="emptyCircle"></div>
+            <div id="6-3"class="emptyCircle"></div>
+          </div>
+          <div class="row">
+            <div id="5-0"class="emptyCircle"></div>
+            <div id="5-1"class="emptyCircle"></div>
+            <div id="5-2"class="emptyCircle"></div>
+            <div id="5-3"class="emptyCircle"></div>
+          </div>
+          <div class="row">
+            <div id="4-0"class="emptyCircle"></div>
+            <div id="4-1"class="emptyCircle"></div>
+            <div id="4-2"class="emptyCircle"></div>
+            <div id="4-3"class="emptyCircle"></div>
+          </div>
+          <div class="row">
+            <div id="3-0"class="emptyCircle"></div>
+            <div id="3-1"class="emptyCircle"></div>
+            <div id="3-2"class="emptyCircle"></div>
+            <div id="3-3"class="emptyCircle"></div>
+          </div>
+          <div class="row">
+            <div id="2-0"class="emptyCircle"></div>
+            <div id="2-1"class="emptyCircle"></div>
+            <div id="2-2"class="emptyCircle"></div>
+            <div id="2-3"class="emptyCircle"></div>
+          </div>
+          <div class="row">
+            <div id="1-0"class="emptyCircle"></div>
+            <div id="1-1"class="emptyCircle"></div>
+            <div id="1-2"class="emptyCircle"></div>
+            <div id="1-3"class="emptyCircle"></div>
+          </div>
+          <div class="row">
+            <div id="0-0"class="emptyCircle"></div>
+            <div id="0-1"class="emptyCircle"></div>
+            <div id="0-2"class="emptyCircle"></div>
+            <div id="0-3"class="emptyCircle"></div>
+          </div>
+        </div>
+
+        <div id="stagingBoard">
+          <div class="row">
+            <div id="stagingBoard-0"class="emptyCircle"></div>
+            <div id="stagingBoard-1"class="emptyCircle"></div>
+            <div id="stagingBoard-2"class="emptyCircle"></div>
+            <div id="stagingBoard-3"class="emptyCircle"></div>
+          </div>
+        </div>
     </div>
-    <div id="game-board">
-      <div class="jumbotron">
-        <h1>Mastermind</h1>
-      </div>
-      <form id="buttons">
-        <button type="button" class="colors" id="red" value="red"></button>
-        <button type="button" class="colors" id="green" value="green"></button>
-        <button type="button" class="colors" id="blue" value="blue"></button>
-        <button type="button" class="colors" id="yellow" value="yellow"></button>
-        <button type="button" class="colors" id="purple" value="purple"></button>
-        <button type="button" class="colors" id="orange" value="orange"></button>
-      </form>
-      <button type="button" id="clear">Clear</button>
-      <button type="button" id="submit">submit</button>
-    </div>
-    <ul id="masterGuesses">
-
-    </ul>
-
-
   </div>
+
 </body>
 </html>
