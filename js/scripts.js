@@ -1,4 +1,8 @@
 // Business Logic
+
+
+
+
 var mastermind = new Mastermind();
 
 function Mastermind() {
@@ -48,31 +52,27 @@ Mastermind.prototype.pegResult = function(){
   console.log(colorMatch(this.tempPlayerGuess, this.tempMasterConfig));
 }
 
+// Checks user guess for exact match against master configuration. Returns number of exact matches.
 function exactMatch(array1, array2, tempPlayerGuess, tempMasterConfig)  {
   var exactMatch = 0;
-
-  if(array1.length != array2.length) {
-    console.log("Those arrays are different lengths");
-  } else {
-    for(var i = 0; i < array1.length; i++) {
-      if(array1[i] === array2[i]) {
-        exactMatch += 1;
-        tempPlayerGuess.push("GuessMatch");
-        tempMasterConfig.push("MasterMatch");
-      } else {
-        tempPlayerGuess.push(array1[i]);
-        tempMasterConfig.push(array2[i]);
-      }
+  for(var i = 0; i < array1.length; i++) {
+    if(array1[i] === array2[i]) {
+      exactMatch += 1;
+      tempPlayerGuess.push("GuessMatch");
+      tempMasterConfig.push("MasterMatch");
+    } else {
+      tempPlayerGuess.push(array1[i]);
+      tempMasterConfig.push(array2[i]);
     }
   }
   mastermind.tempBlackPeg = exactMatch;
   return exactMatch;
 }
 
+// Checks user guess for color matches against master configuration. Returns number of color matches.
 function colorMatch(array1, array2) {
   var colorMatch = 0;
   var tempMasterArray = array2.slice();
-
   array1.forEach(function(position) {
     if(tempMasterArray.indexOf(position) != -1) {
       var splicePoint = tempMasterArray.indexOf(position);
@@ -89,12 +89,60 @@ var gameArray = []
 
 $(document).ready(function(){
 
+
+  var seconds = 1;
+
+
+  var gameTimer = setInterval(function() {
+    seconds += .01;
+    $("#playTimer").text(seconds.toFixed(2));
+
+    if(seconds > 10) {
+    $("#playTimer").css("color", "red");
+    }
+
+    if(seconds > 100) {
+      clearInterval(gameTimer);
+    }
+  }, 10);
+
+  function resetGame() {
+    for ( var i= 0; i < 12; i++){
+      for( var z=0; z < 4; z++) {
+        $("#" + i + "-" + z).css("background-color", 'grey');
+        $("#peg" + i + "-" + z).css("background-color", '#484848');
+        $("#peg" + i + "-" + z).removeClass("whitePeg");
+      }
+    }
+    mastermind.playerGuess = [];
+    $("button.colors").prop("disabled",false);
+    for (let i =0; i < 4; i ++){
+      $("#stagingBoard-" + i).css("background-color", "gray");
+    }
+  }
+
+  $("#resetGame").click(function(event){
+    event.preventDefault();
+    resetGame();
+  });
+
+  $("#cheatButton").click(function(event){
+    event.preventDefault();
+    $("#stagingBoard-" + mastermind.playerGuess.length).css("background-color", mastermind.masterConfig[(mastermind.playerGuess.length)]);
+    if (mastermind.playerGuess.length >= 4) {
+      $("button.colors").prop("disabled",true);
+    }
+    mastermind.playerGuess.push(mastermind.masterConfig[(mastermind.playerGuess.length)]);
+
+  });
+
   $("#start-button").click(function(event){
     event.preventDefault();
     $("#start-screen").hide();
     $("#game").fadeIn();
 
   });
+
 
   $("form#buttons").on("click", "button", function(){
     console.log(this.value);
@@ -103,7 +151,7 @@ $(document).ready(function(){
       $("button.colors").prop("disabled",true);
     }
     mastermind.playerGuess.push(this.value);
-});
+  });
 
   $("#submit").click(function(){
     if (mastermind.playerGuess.length < 4){
@@ -128,7 +176,8 @@ $(document).ready(function(){
     }
     mastermind.endTurn();
    }
-  })
+ });
+
 
 
   $("#clear").click(function(){
