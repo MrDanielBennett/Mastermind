@@ -97,7 +97,7 @@ $(document).ready(function(){
   $("form#buttons").on("click", "button", function(){
     console.log(this.value);
     $("#stagingBoard-" + mastermind.playerGuess.length).css("background-color", this.value);
-    if (mastermind.playerGuess.length >= 4) {
+    if (mastermind.playerGuess.length >= 3) {
       $("button.colors").prop("disabled",true);
     }
     mastermind.playerGuess.push(this.value);
@@ -106,7 +106,7 @@ $(document).ready(function(){
   $("#submit").click(function(){
     if (mastermind.playerGuess.length < 4){
     return alert("please Choose all four colors");
-    }else {
+    } else {
     mastermind.pegResult();
     $("button.colors").prop("disabled",false);
 
