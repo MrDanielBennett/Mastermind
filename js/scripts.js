@@ -3,14 +3,21 @@ var mastermind = new Mastermind();
 
 function Mastermind() {
   this.currentTurn = 0;
-  // This is going to count the number of turns a player makes.
   this.playerGuess = [];
   this.tempPlayerGuess = [];
   this.tempBlackPeg = 0;
   this.tempWhitePeg = 0;
   this.masterConfig = masterConfiguration();
   this.tempMasterConfig = []
-  // This will store the player's guess that's input in the UI.
+}
+
+Mastermind.prototype.winCheck = function(){
+    if (this.tempBlackPeg === 4){
+      return "win";
+    }else if (this.currentTurn === 11) {
+      return "lose"
+    }
+
 }
 
 Mastermind.prototype.endTurn = function() {
@@ -22,15 +29,6 @@ Mastermind.prototype.endTurn = function() {
   this.currentTurn += 1
 }
 
-
-Mastermind.prototype.checkForWin = function(){
-  // Evaluate the player guess against the master config.
-}
-
-
-Mastermind.prototype.currentTurn = function(){
-  // Read current Mastermind turn count and add 1.
-}
 function masterConfiguration() {
   var color = ["red", "green", "blue", "yellow", "purple", "orange"];
   var c;
@@ -40,22 +38,16 @@ function masterConfiguration() {
     var i = Math.floor((Math.random() * (4-c)));
     masterConfig.push(color[i]);
     color[i] = color[4-c];
-
   }
-      return (masterConfig);
+  return (masterConfig);
 }
-
 
 Mastermind.prototype.pegResult = function(){
   console.log(exactMatch(this.playerGuess, this.masterConfig, this.tempPlayerGuess, this.tempMasterConfig));
   console.log(colorMatch(this.tempPlayerGuess, this.tempMasterConfig));
-
 }
 
-
-
 function exactMatch(array1, array2, tempPlayerGuess, tempMasterConfig)  {
-
   var exactMatch = 0;
 
   if(array1.length != array2.length) {
@@ -86,11 +78,10 @@ function colorMatch(array1, array2) {
       colorMatch += 1;
       tempMasterArray.splice(splicePoint,1,'colormatch');
     }
-   });
-   mastermind.tempWhitePeg = colorMatch;
-   return colorMatch;
+ });
+ mastermind.tempWhitePeg = colorMatch;
+ return colorMatch;
 }
-
 
 // User Interface Logic
 var gameArray = []
@@ -101,33 +92,23 @@ $(document).ready(function(){
     event.preventDefault();
     $("#start-screen").hide();
     $("#game").fadeIn();
-  
+
   });
-
-
-  // $("body").on("click", "button", function(event) {
-  //   event.preventDefault();
-  //
-  //   var input = $(this).val();
-  //   gameArray.push(input);
-  //   console.log(this.value);
-  //   console.log("YOU DID IT");
-  // })
 
   $("form#buttons").on("click", "button", function(){
     console.log(this.value);
-    mastermind.playerGuess.push(this.value);
-    $("#stagingBoard-" + mastermind.playerGuess.indexOf(this.value)).css("background-color", this.value);
+    $("#stagingBoard-" + mastermind.playerGuess.length).css("background-color", this.value);
     if (mastermind.playerGuess.length >= 4) {
       $("button.colors").prop("disabled",true);
     }
+    mastermind.playerGuess.push(this.value);
 });
 
   $("#submit").click(function(){
+    if (mastermind.playerGuess.length < 4){
+    return alert("please Choose all four colors");
+    }else {
     mastermind.pegResult();
-    $("ul#masterGuesses").append("<li>" + mastermind.playerGuess +  " (" + mastermind.tempBlackPeg + " / " + mastermind.tempWhitePeg + ") </li>");
-    console.log(mastermind.tempPlayerGuess);
-    console.log(mastermind.tempMasterConfig);
     $("button.colors").prop("disabled",false);
 
     for ( var i= 0; i <mastermind.playerGuess.length; i++){
@@ -136,24 +117,24 @@ $(document).ready(function(){
     for (let i =0; i < 4; i ++){
       $("#stagingBoard-" + i).css("background-color", "gray");
     }
+    mastermind.winCheck();
+    console.log(mastermind.winCheck());
+    for (var i = 0; i < mastermind.tempBlackPeg; i++){
+      $("#peg" + mastermind.currentTurn + "-" + i).css("background-color", "black");
+    }
+    for (var i = mastermind.tempBlackPeg; i < mastermind.tempWhitePeg + mastermind.tempBlackPeg; i ++) {
+      $("#peg" + mastermind.currentTurn + "-" + i).addClass("whitePeg");
+    }
     mastermind.endTurn();
+   }
   })
-
-
 
 
   $("#clear").click(function(){
     mastermind.playerGuess = [];
-    console.log(mastermind.playerGuess);
-
+    $("button.colors").prop("disabled",false);
     for (let i =0; i < 4; i ++){
       $("#stagingBoard-" + i).css("background-color", "gray");
     }
-
-  })
-// for (var i = 0; i < 4; i++){
-
-
+  });
 });
-
-// add clear array function
