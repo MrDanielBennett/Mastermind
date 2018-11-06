@@ -12,25 +12,27 @@ function Mastermind() {
   this.tempMasterConfig = []
   // This will store the player's guess that's input in the UI.
 }
+Mastermind.prototype.winCheck = function(){
+    if (this.tempBlackPeg === 4){
+      return "win";
+    }else if (this.currentTurn === 11) {
+      return "lose"
+    }
+
+}
 
 Mastermind.prototype.endTurn = function() {
+
   this.playerGuess = [];
   this.tempPlayerGuess = [];
   this.tempMasterConfig = [];
   this.tempBlackPeg = 0;
   this.tempWhitePeg = 0;
   this.currentTurn += 1
+
 }
 
 
-Mastermind.prototype.checkForWin = function(){
-  // Evaluate the player guess against the master config.
-}
-
-
-Mastermind.prototype.currentTurn = function(){
-  // Read current Mastermind turn count and add 1.
-}
 function masterConfiguration() {
   var color = ["red", "green", "blue", "yellow", "purple", "orange"];
   var c;
@@ -101,7 +103,7 @@ $(document).ready(function(){
     event.preventDefault();
     $("#start-screen").hide();
     $("#game").fadeIn();
-  
+
   });
 
 
@@ -116,11 +118,11 @@ $(document).ready(function(){
 
   $("form#buttons").on("click", "button", function(){
     console.log(this.value);
-    mastermind.playerGuess.push(this.value);
-    $("#stagingBoard-" + mastermind.playerGuess.indexOf(this.value)).css("background-color", this.value);
+    $("#stagingBoard-" + mastermind.playerGuess.length).css("background-color", this.value);
     if (mastermind.playerGuess.length >= 4) {
       $("button.colors").prop("disabled",true);
     }
+    mastermind.playerGuess.push(this.value);
 });
 
   $("#submit").click(function(){
@@ -136,6 +138,14 @@ $(document).ready(function(){
     for (let i =0; i < 4; i ++){
       $("#stagingBoard-" + i).css("background-color", "gray");
     }
+    mastermind.winCheck();
+    console.log(mastermind.winCheck());
+    for (var i = 0; i < mastermind.tempBlackPeg; i++){
+      $("#peg" + mastermind.currentTurn + "-" + i).css("background-color", "black");
+    }
+    for (var i = mastermind.tempBlackPeg; i < mastermind.tempWhitePeg + mastermind.tempBlackPeg; i ++) {
+      $("#peg" + mastermind.currentTurn + "-" + i).addClass("whitePeg");
+    }
     mastermind.endTurn();
   })
 
@@ -144,8 +154,7 @@ $(document).ready(function(){
 
   $("#clear").click(function(){
     mastermind.playerGuess = [];
-    console.log(mastermind.playerGuess);
-
+    $("button.colors").prop("disabled",false);
     for (let i =0; i < 4; i ++){
       $("#stagingBoard-" + i).css("background-color", "gray");
     }
