@@ -41,7 +41,26 @@ body {
 #game {
   display: none;
 }
-
+#lose-modal{
+  margin-top: 25%;
+  display: none;
+}
+#win-modal{
+  margin-top: 25%;
+  display: none;
+}
+.modal-header{
+  background-color: grey;
+  box-shadow: 2px 2px white;
+}
+.modal-body{
+  background-color: lightgrey;
+  box-shadow: 2px 2px white;
+}
+.modal-footer{
+  background-color: grey;
+  box-shadow: 2px 2px white;
+}
 #red {
   background-color: red;
   height: 50px;
