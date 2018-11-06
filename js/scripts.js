@@ -47,31 +47,27 @@ Mastermind.prototype.pegResult = function(){
   console.log(colorMatch(this.tempPlayerGuess, this.tempMasterConfig));
 }
 
+// Checks user guess for exact match against master configuration. Returns number of exact matches.
 function exactMatch(array1, array2, tempPlayerGuess, tempMasterConfig)  {
   var exactMatch = 0;
-
-  if(array1.length != array2.length) {
-    console.log("Those arrays are different lengths");
-  } else {
-    for(var i = 0; i < array1.length; i++) {
-      if(array1[i] === array2[i]) {
-        exactMatch += 1;
-        tempPlayerGuess.push("GuessMatch");
-        tempMasterConfig.push("MasterMatch");
-      } else {
-        tempPlayerGuess.push(array1[i]);
-        tempMasterConfig.push(array2[i]);
-      }
+  for(var i = 0; i < array1.length; i++) {
+    if(array1[i] === array2[i]) {
+      exactMatch += 1;
+      tempPlayerGuess.push("GuessMatch");
+      tempMasterConfig.push("MasterMatch");
+    } else {
+      tempPlayerGuess.push(array1[i]);
+      tempMasterConfig.push(array2[i]);
     }
   }
   mastermind.tempBlackPeg = exactMatch;
   return exactMatch;
 }
 
+// Checks user guess for color matches against master configuration. Returns number of color matches.
 function colorMatch(array1, array2) {
   var colorMatch = 0;
   var tempMasterArray = array2.slice();
-
   array1.forEach(function(position) {
     if(tempMasterArray.indexOf(position) != -1) {
       var splicePoint = tempMasterArray.indexOf(position);
@@ -129,6 +125,21 @@ $(document).ready(function(){
    }
   })
 
+
+//
+// reset game
+// sets game elements to zero
+// keeps win count
+// initialized new master configuration
+// clears all 12 turn rows back to gray
+
+function resetGame() {
+  for ( var i= 1; i <= 12; i++){
+    for( var z=1; z <= 4; z++) {
+      $("#" + i + "-" + i).css("background-color", 'grey');
+    }
+  }
+}
 
   $("#clear").click(function(){
     mastermind.playerGuess = [];
