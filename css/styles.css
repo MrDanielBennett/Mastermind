@@ -43,7 +43,7 @@ body {
 }
 #lose-modal{
   margin-top: 25%;
-  /* display: none; */
+  display: none;
 }
 #win-modal{
   margin-top: 25%;
