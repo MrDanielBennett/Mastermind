@@ -138,8 +138,9 @@ $(document).ready(function(){
 
   $("#start-button").click(function(event){
     event.preventDefault();
-    $("#start-screen").hide();
-    $("#game").fadeIn();
+    $("#start-button").hide();
+    $("h1").removeClass("marginTop");
+    $("#game").slideDown(1500);
 
   });
 
