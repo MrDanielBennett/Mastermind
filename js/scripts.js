@@ -89,6 +89,42 @@ var gameArray = []
 
 $(document).ready(function(){
 
+// EXPERIMENTAL FEATURE TO DYNAMICALLY BUILD THE BOARD BASED
+//
+//
+//   var gameBoardHTML = "<div class='row'>" + buildTheBoard() + "<div class='pegResult' class='row'><div class='col-md-1'><div id='peg" + ROW# + "-" + PEG# "' class='pegCircle'></div><div id='peg0-1'class='pegCircle'></div></div><div class='col-md-1'><div id='peg0-2'class='pegCircle'></div><div id='peg0-3'class='pegCircle'></div></div></div></div>";
+//
+//   var totalRows = 2;
+//   var rowCount = 0;
+//
+  function buildTheBoard() {
+    var tempHTML = ""
+    for(var i=11; i >= 0; i--) {
+      tempHTML += "<div class='row'><div id='" + i + "-0'class='emptyCircle'></div><div id='" + i + "-1'class='emptyCircle'></div><div id='" + i + "-2'class='emptyCircle'></div><div id='" + i + "-3'class='emptyCircle'></div><div id='pegResult' class='row'><div class='col-md-1'><div id='peg" + i + "-0'class='pegCircle'></div><div id='peg" + i + "-1'class='pegCircle'></div></div><div class='col-md-1'><div id='peg" + i + "-2' class='pegCircle'></div><div id='peg" + i + "-3' class='pegCircle'></div></div></div></div>"
+    }
+    return(tempHTML);
+  }
+
+
+
+
+  $("#buildTheBoard").html(buildTheBoard());
+
+
+
+
+
+
+
+
+
+
+// END EXPERIMENTAL SECTION
+
+
+
+
+
 
   var seconds = 1;
 
