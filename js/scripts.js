@@ -218,11 +218,15 @@ var gridSize = 11;
     $("#win-modal").hide();
     $("#lose-modal").hide();
   });
-  $("#close-alert").click(function(){
+  $(".close-modal").click(function(){
     $("#alert-modal").hide();
+    $("#settings-modal").hide();
   })
   $("#info-icon").hover(function(){
     $("#info-modal").toggle();
+  })
+  $("#settings-icon").click(function(){
+    $("#settings-modal").show();
   })
 
   $("#clear").click(function(){
