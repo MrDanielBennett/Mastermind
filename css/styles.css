@@ -157,6 +157,19 @@ body {
   width: 85px;
 }
 
+/* jared's addition */
+.pegResult {
+  display: inline-block;
+  margin-left: 15px;
+  margin-bottom: 2px;
+  background-color: #BEBEBE;
+  padding: 5px;
+  padding-top: 10px;
+  border-radius: 2px;
+  width: 85px;
+}
+/* end addition */
+
 #stagingBoard {
   margin-top: 20px;
   background-color: 		#BEBEBE;
