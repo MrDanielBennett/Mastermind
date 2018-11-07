@@ -1,24 +1,45 @@
-/* @font-face {
+@font-face {
     font-family: 'metroregular';
     src: url('Metro-webfont.eot');
     src: url('Metro-webfont.eot?#iefix') format('embedded-opentype'),
-         url('Metro-webfont.woff2') format('woff2'),
          url('Metro-webfont.woff') format('woff'),
          url('Metro-webfont.ttf') format('truetype'),
          url('Metro-webfont.svg#metroregular') format('svg');
     font-weight: normal;
     font-style: normal;
 
-} */
+}
 
 h1 {
-  /* font-family: metroregular; */
+  text-align: center;
+  font-family: metroregular;
   font-size: 75px;
   color: white;
+  margin-botton: 20px;
 }
 
 body {
   background-color: black;
+}
+#clear{
+  width: 100px;
+  font-size: 25px;
+  margin: 5px;
+  margin-top: 25px;
+  padding: 10px;
+  border: none;
+  background-color: #CBA72D;
+  box-shadow: 2px 2px black;
+}
+#submit{
+  width: 100px;
+  font-size: 25px;
+  margin: 5px;
+  margin-top: 25px;
+  padding: 10px;
+  border: none;
+  background-color: #CBA72D;
+  box-shadow: 2px 2px black;
 }
 
 #start-button {
@@ -97,18 +118,47 @@ body {
   width: 50px;
   border-radius: 100%;
 }
+.colors{
+  border: 1px solid darkgray;
+  margin-top: 10px;
+  box-shadow: 1px 1px gray;
+}
+
+.gameBoard {
+ margin-left: 25%;
+  background-color: lightgray;
+  text-align: center;
+  padding: 40px;
+  border-radius: 20px;
+  width: 600px;
+}
 
 .emptyCircle {
+  margin: 5px;
   background-color: gray;
   height: 50px;
   width: 50px;
   border-radius: 100%;
   display: inline-block;
+  box-shadow: 1px 1px black;
 }
+
 #pegResult {
   display: inline-block;
-  margin-left: 5px;
+  margin-left: 15px;
   margin-bottom: 2px;
+  background-color: #BEBEBE;
+  padding: 5px;
+  padding-top: 10px;
+  border-radius: 2px;
+  width: 85px;
+}
+
+#stagingBoard {
+  margin-top: 20px;
+  background-color: 		#BEBEBE;
+  padding: 20px;
+  border-radius: 10px;
 }
 
 .pegCircle {
