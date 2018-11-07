@@ -1,50 +1,14 @@
 // Business Logic
 var mastermind = new Mastermind();
 
-function Mastermind() {
-  this.currentTurn = 0;
-  this.playerGuess = [];
-  this.tempPlayerGuess = [];
-  this.tempBlackPeg = 0;
-  this.tempWhitePeg = 0;
-  this.masterConfig = masterConfiguration();
-  this.tempMasterConfig = []
-}
-
-Mastermind.prototype.winCheck = function(){
-
-    if (this.tempBlackPeg === 4){
-      $("#win-modal").show();
-    }else if (this.currentTurn === 11) {
-      $("#lose-modal").show();
-    }
-}
-
-Mastermind.prototype.endTurn = function() {
-  this.playerGuess = [];
-  this.tempPlayerGuess = [];
-  this.tempMasterConfig = [];
-  this.tempBlackPeg = 0;
-  this.tempWhitePeg = 0;
-  this.currentTurn += 1
-}
-
 function masterConfiguration() {
-  var color = ["red", "green", "blue", "yellow", "purple", "orange"];
-  var c;
-  var masterConfig=[];
-  for (c=1; c<=4; ++c)
-  {
-    var i = Math.floor((Math.random() * 6));
-    masterConfig.push(color[i]);
-    color[i] = color[4-c];
+  var colorArray = ["red", "green", "blue", "yellow", "purple", "orange"];
+  var masterConfigArray=[];
+  for (var i = 0; i < 4; i++) {
+    var randomNum = Math.floor((Math.random() * 6));
+    masterConfigArray.push(colorArray[randomNum]);
   }
-  return (masterConfig);
-}
-
-Mastermind.prototype.pegResult = function(){
-  console.log(exactMatch(this.playerGuess, this.masterConfig, this.tempPlayerGuess, this.tempMasterConfig));
-  console.log(colorMatch(this.tempPlayerGuess, this.tempMasterConfig));
+  return (masterConfigArray);
 }
 
 // Checks user guess for exact match against master configuration. Returns number of exact matches.
@@ -74,10 +38,44 @@ function colorMatch(array1, array2) {
       colorMatch += 1;
       tempMasterArray.splice(splicePoint,1,'colormatch');
     }
- });
- mastermind.tempWhitePeg = colorMatch;
- return colorMatch;
+  });
+  mastermind.tempWhitePeg = colorMatch;
+  return colorMatch;
 }
+
+function Mastermind() {
+  this.playerGuess = [];
+  this.tempPlayerGuess = [];
+  this.tempMasterConfig = []
+  this.tempBlackPeg = 0;
+  this.tempWhitePeg = 0;
+  this.currentTurn = 0;
+  this.masterConfig = masterConfiguration();
+}
+
+
+Mastermind.prototype.endTurn = function() {
+  this.playerGuess = [];
+  this.tempPlayerGuess = [];
+  this.tempMasterConfig = [];
+  this.tempBlackPeg = 0;
+  this.tempWhitePeg = 0;
+  this.currentTurn += 1
+}
+
+Mastermind.prototype.winCheck = function(){
+  if (this.tempBlackPeg === 4){
+    $("#win-modal").show();
+  }else if (this.currentTurn === 11) {
+    $("#lose-modal").show();
+  }
+}
+
+Mastermind.prototype.pegResult = function(){
+  console.log(exactMatch(this.playerGuess, this.masterConfig, this.tempPlayerGuess, this.tempMasterConfig));
+  console.log(colorMatch(this.tempPlayerGuess, this.tempMasterConfig));
+}
+
 
 // User Interface Logic
 var gameArray = []
