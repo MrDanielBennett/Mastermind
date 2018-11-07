@@ -191,7 +191,7 @@ var gridSize = 11;
 
   $("#submit").click(function(){
     if (mastermind.playerGuess.length < 4){
-    return alert("please Choose all four colors");
+    $("#alert-modal").show();
     } else {
     mastermind.pegResult();
     $("button.colors").prop("disabled",false);
@@ -218,7 +218,12 @@ var gridSize = 11;
     $("#win-modal").hide();
     $("#lose-modal").hide();
   });
-
+  $("#close-alert").click(function(){
+    $("#alert-modal").hide();
+  })
+  $("#info-icon").hover(function(){
+    $("#info-modal").toggle();
+  })
 
   $("#clear").click(function(){
     mastermind.playerGuess = [];

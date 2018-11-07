@@ -80,5 +80,49 @@
         </div>
       </div>
     </div>
+  </div>
+    <div id="info-modal" tabindex="-1" role="dialog">
+      <div class="vertical-alignment-helper">
+        <div class="modal-dialog vertical-align-center">
+          <div class="modal-content">
+            <div class="modal-header">
+              <h3>Info</h3>
+            </div>
+            <div class="modal-body">
+              <p>Welcome to Mastermind, in this game the computer has generated a 4 color pattern that you have to guess in the amount of turns given.</p>
+              <p>Once you have made your first guess the pegs in the right hand box should fill with one of these 3 colors:</p>
+              <ul>
+                <li>Gold Peg: You have an exact match (correct color and postion)</li>
+                <li>White w/ Green Outline: You have the one correct color</li>
+                <li>Stay Dark: Your guess is 100% wrong. Yikes.</li>
+              </ul>
+              <p>Win: You guess the correct parttern before the turn limit.</p>
+              <p>Lose: You hit the guess limit before being able to guess the pattern correctly.</p>
+            </div>
+            <div class="modal-footer">
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div id="alert-modal" tabindex="-1" role="dialog">
+      <div class="vertical-alignment-helper">
+        <div class="modal-dialog vertical-align-center">
+          <div class="modal-content">
+            <div class="modal-header">
+              <button type="button" id="close-alert" data-dismiss="modal" aria-label="Close">
+                <span aria-hidden="true">&times;</span>
+              </button>
+            </div>
+            <div class="modal-body">
+              <h2>You must select 4 choices to make a guess!</h2>
+            </div>
+            <div class="modal-footer">
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+      <img id="info-icon" src="img/info2.png" alt="info">
   </body>
   </html>
