@@ -26,7 +26,8 @@ body {
   background-color: black;
 }
 #buttons{
-  margin-top: 400px;
+  position: absolute;
+  bottom: 0;
 }
 /* changed clear button and submit button */
 .stagingButton{
