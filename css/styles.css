@@ -56,7 +56,9 @@ body {
   background-color: #CBA72D;
   box-shadow: 2px 2px black;
 }
-#start-button {
+
+.startGame {
+  display: inline-block;
   background-color: blue;
   font-size: 20px;
   color: white;
@@ -64,11 +66,11 @@ body {
   padding: 20px;
   width: 200px;
   margin-top: 20px;
-  margin: 0% 50% 0% 42%;
+  margin: 10px;
 }
 
-#start-button:hover {
-  background-color: gray;
+.startGame:hover {
+  background-color: #CBA72D;
 }
 
 #start-screen {
@@ -144,7 +146,7 @@ body {
 }
 
 .gameBoard {
-  margin-left: 25%;
+  margin-left: 23.5%;
   background-color: lightgray;
   text-align: center;
   padding: 40px;
@@ -219,6 +221,9 @@ body {
 
 .blackPeg {
   background-color: #FFD700;
+}
+.difficultyButtons{
+  text-align: center;
 }
 
 #board {

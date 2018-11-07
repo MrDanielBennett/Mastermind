@@ -122,7 +122,7 @@ var gridSize = 11;
 
 
 
-  var seconds = 1;
+  // var seconds = 1;
 
 
   // var gameTimer = setInterval(function() {
@@ -152,6 +152,7 @@ var gridSize = 11;
       $("#stagingBoard-" + i).css("background-color", "gray");
     }
     mastermind.currentTurn = 0;
+    $("#cheatButton").css("color", "white");
   }
 
 
@@ -168,15 +169,14 @@ var gridSize = 11;
       $("button.colors").prop("disabled",true);
     }
     mastermind.playerGuess.push(mastermind.masterConfig[(mastermind.playerGuess.length)]);
-
+    $("#cheatButton").css("color", "#CBA72D");
   });
 
-  $("#start-button").click(function(event){
-    event.preventDefault();
-    $("#start-button").hide();
+  $(".difficultyButtons").on("click", "button", function(){
+    $(".difficultyButtons").hide();
     $("h1").removeClass("marginTop");
+    var difficulty = this.id;
     $("#game").slideDown(1500);
-
   });
 
 
@@ -235,5 +235,6 @@ var gridSize = 11;
     for (let i =0; i < 4; i ++){
       $("#stagingBoard-" + i).css("background-color", "gray");
     }
+    $("#cheatButton").css("color", "white");
   });
 });
