@@ -18,25 +18,23 @@ h1 {
   margin-botton: 20px;
 }
 
+.marginTop {
+  margin-top: 25%;
+}
+
 body {
   background-color: black;
 }
-#clear{
-  width: 100px;
-  font-size: 25px;
-  margin: 5px;
-  margin-top: 25px;
-  padding: 10px;
-  border: none;
-  background-color: #CBA72D;
-  box-shadow: 2px 2px black;
+#buttons{
+  margin-top: 400px;
 }
-#submit{
+/* changed clear button and submit button */
+.stagingButton{
   width: 100px;
-  font-size: 25px;
-  margin: 5px;
-  margin-top: 25px;
-  padding: 10px;
+  font-size: 20px;
+  margin: 10px;
+  margin-top: 20px;
+  padding: 6px;
   border: none;
   background-color: #CBA72D;
   box-shadow: 2px 2px black;
@@ -48,7 +46,9 @@ body {
   color: white;
   border: none;
   padding: 20px;
+  width: 200px;
   margin-top: 20px;
+  margin: 0% 50% 0% 42%;
 }
 
 #start-button:hover {
@@ -63,24 +63,27 @@ body {
   display: none;
 }
 #lose-modal{
-  margin-top: 25%;
   display: none;
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
 }
 #win-modal{
-  margin-top: 25%;
   display: none;
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
 }
 .modal-header{
-  background-color: grey;
-  box-shadow: 2px 2px white;
+  background-color: ;
 }
 .modal-body{
-  background-color: lightgrey;
-  box-shadow: 2px 2px white;
+  background-color: ;
 }
 .modal-footer{
-  background-color: grey;
-  box-shadow: 2px 2px white;
+  background-color: ;
 }
 #red {
   background-color: red;
@@ -125,7 +128,7 @@ body {
 }
 
 .gameBoard {
- margin-left: 25%;
+  margin-left: 20%;
   background-color: lightgray;
   text-align: center;
   padding: 40px;
@@ -185,6 +188,11 @@ body {
 .whitePeg {
   border: 3px solid #00FF00;
   background-color: white;
+}
+
+
+.blackPeg {
+  background-color: #FFD700;
 }
 
 #board {
