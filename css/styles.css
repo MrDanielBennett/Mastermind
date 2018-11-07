@@ -63,24 +63,27 @@ body {
   display: none;
 }
 #lose-modal{
-  margin-top: 25%;
   display: none;
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
 }
 #win-modal{
-  margin-top: 25%;
   display: none;
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
 }
 .modal-header{
-  background-color: grey;
-  box-shadow: 2px 2px white;
+  background-color: ;
 }
 .modal-body{
-  background-color: lightgrey;
-  box-shadow: 2px 2px white;
+  background-color: ;
 }
 .modal-footer{
-  background-color: grey;
-  box-shadow: 2px 2px white;
+  background-color: ;
 }
 #red {
   background-color: red;
@@ -172,6 +175,11 @@ body {
 .whitePeg {
   border: 3px solid #00FF00;
   background-color: white;
+}
+
+
+.blackPeg {
+  background-color: #FFD700;
 }
 
 #board {

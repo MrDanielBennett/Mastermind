@@ -1,8 +1,4 @@
 // Business Logic
-
-
-
-
 var mastermind = new Mastermind();
 
 function Mastermind() {
@@ -21,7 +17,6 @@ Mastermind.prototype.winCheck = function(){
       $("#win-modal").show();
     }else if (this.currentTurn === 11) {
       $("#lose-modal").show();
-      $("#game").hide();
     }
 }
 
@@ -110,16 +105,19 @@ $(document).ready(function(){
     for ( var i= 0; i < 12; i++){
       for( var z=0; z < 4; z++) {
         $("#" + i + "-" + z).css("background-color", 'grey');
-        $("#peg" + i + "-" + z).css("background-color", '#484848');
-        $("#peg" + i + "-" + z).removeClass("whitePeg");
+        $("#peg" + i + "-" + z).removeClass("whitePeg blackPeg");
       }
     }
     mastermind.playerGuess = [];
+    mastermind.masterConfig = masterConfiguration();
     $("button.colors").prop("disabled",false);
     for (let i =0; i < 4; i ++){
       $("#stagingBoard-" + i).css("background-color", "gray");
     }
+    mastermind.currentTurn = 0;
   }
+
+
 
   $("#resetGame").click(function(event){
     event.preventDefault();
@@ -170,7 +168,7 @@ $(document).ready(function(){
     mastermind.winCheck();
     console.log(mastermind.winCheck());
     for (var i = 0; i < mastermind.tempBlackPeg; i++){
-      $("#peg" + mastermind.currentTurn + "-" + i).css("background-color", "#FFD700");
+      $("#peg" + mastermind.currentTurn + "-" + i).addClass("blackPeg");
     }
     for (var i = mastermind.tempBlackPeg; i < mastermind.tempWhitePeg + mastermind.tempBlackPeg; i ++) {
       $("#peg" + mastermind.currentTurn + "-" + i).addClass("whitePeg");
@@ -178,7 +176,11 @@ $(document).ready(function(){
     mastermind.endTurn();
    }
  });
-
+  $(".refresh-btn").click(function(){
+    resetGame();
+    $("#win-modal").hide();
+    $("#lose-modal").hide();
+  });
 
 
   $("#clear").click(function(){
