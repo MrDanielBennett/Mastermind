@@ -93,18 +93,18 @@ $(document).ready(function(){
   var seconds = 1;
 
 
-  var gameTimer = setInterval(function() {
-    seconds += .01;
-    $("#playTimer").text(seconds.toFixed(2));
-
-    if(seconds > 10) {
-    $("#playTimer").css("color", "red");
-    }
-
-    if(seconds > 100) {
-      clearInterval(gameTimer);
-    }
-  }, 10);
+  // var gameTimer = setInterval(function() {
+  //   seconds += .01;
+  //   $("#playTimer").text(seconds.toFixed(2));
+  //
+  //   if(seconds > 10) {
+  //   $("#playTimer").css("color", "red");
+  //   }
+  //
+  //   if(seconds > 100) {
+  //     clearInterval(gameTimer);
+  //   }
+  // }, 10);
 
   function resetGame() {
     for ( var i= 0; i < 12; i++){
