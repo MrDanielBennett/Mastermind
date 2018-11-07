@@ -127,8 +127,8 @@ $(document).ready(function(){
 
   function buildTheBoard() {
     var tempHTML = ""
-    for(var i=gridSize; i >= 0; i--) {
-      tempHTML += "<div class='row'><h3 class='rowNumber'>" + (i+1) + "</h3><div id='" + i + "-0'class='emptyCircle'></div><div id='" + i + "-1'class='emptyCircle'></div><div id='" + i + "-2'class='emptyCircle'></div><div id='" + i + "-3'class='emptyCircle'></div><div id='pegResult' class='row'><div class='col-md-1'><div id='peg" + i + "-0'class='pegCircle'></div><div id='peg" + i + "-1'class='pegCircle'></div></div><div class='col-md-1'><div id='peg" + i + "-2' class='pegCircle'></div><div id='peg" + i + "-3' class='pegCircle'></div></div></div></div>"
+    for(var i= gridSize; i >= 0; i--) {
+      tempHTML += "<div class='row'><div class='col-md-1'><div class='rowNumber'>" + (i+1) + "</div></div><div id='" + i + "-0'class='emptyCircle'></div><div id='" + i + "-1'class='emptyCircle'></div><div id='" + i + "-2'class='emptyCircle'></div><div id='" + i + "-3'class='emptyCircle'></div><div id='pegResult' class='row'><div class='col-md-1'><div id='peg" + i + "-0'class='pegCircle'></div><div id='peg" + i + "-1'class='pegCircle'></div></div><div class='col-md-1'><div id='peg" + i + "-2' class='pegCircle'></div><div id='peg" + i + "-3' class='pegCircle'></div></div></div></div>"
     }
     return(tempHTML);
   }
@@ -164,6 +164,7 @@ $(document).ready(function(){
       $("#stagingBoard-" + i).css("background-color", "gray");
     }
     mastermind.currentTurn = 0;
+    $("#cheatButton").css("color", "white");
   }
 
   $("#resetGame").click(function(event){
@@ -178,12 +179,13 @@ $(document).ready(function(){
       $("button.colors").prop("disabled",true);
     }
     mastermind.playerGuess.push(mastermind.masterConfig[(mastermind.playerGuess.length)]);
+    $("#cheatButton").css("color", "#CBA72D");
   });
 
-  $("#start-button").click(function(event){
-    event.preventDefault();
-    $("#start-button").hide();
+  $(".difficultyButtons").on("click", "button", function(){
+    $(".difficultyButtons").hide();
     $("h1").removeClass("marginTop");
+    var difficulty = this.id;
     $("#game").slideDown(1500);
     $("#buildTheBoard").html(buildTheBoard());
   });
@@ -199,7 +201,7 @@ $(document).ready(function(){
 
   $("#submit").click(function(){
     if (mastermind.playerGuess.length < 4){
-    return alert("please Choose all four colors");
+    $("#alert-modal").show();
     } else {
     mastermind.pegResult();
     $("button.colors").prop("disabled",false);
@@ -226,7 +228,16 @@ $(document).ready(function(){
     $("#win-modal").hide();
     $("#lose-modal").hide();
   });
-
+  $(".close-modal").click(function(){
+    $("#alert-modal").hide();
+    $("#settings-modal").hide();
+  })
+  $("#info-icon").hover(function(){
+    $("#info-modal").toggle();
+  })
+  $("#settings-icon").click(function(){
+    $("#settings-modal").show();
+  })
 
   $("#clear").click(function(){
     mastermind.playerGuess = [];
@@ -234,6 +245,7 @@ $(document).ready(function(){
     for (let i =0; i < 4; i ++){
       $("#stagingBoard-" + i).css("background-color", "gray");
     }
+    $("#cheatButton").css("color", "white");
   });
 
 });
