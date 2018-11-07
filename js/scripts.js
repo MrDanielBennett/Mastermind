@@ -1,15 +1,59 @@
 // Business Logic
+var difficultySetting = "Easy";
 var mastermind = new Mastermind();
+var gridSize;
+// function masterConfiguration() {
+//   var colorArray = ["red", "green", "blue", "yellow", "purple", "orange"];
+//   var masterConfigArray=[];
+//   for (var i = 0; i < 4; i++) {
+//     var randomNum = Math.floor((Math.random() * 6));
+//     masterConfigArray.push(colorArray[randomNum]);
+//   }
+//   return (masterConfigArray);
+// }
 
+// NEW CODE. ONLY UNCOMMENT WHEN EASY/NORMAL/MASTER DIFFICULTY MODES ARE AVAILABLE
 function masterConfiguration() {
-  var colorArray = ["red", "green", "blue", "yellow", "purple", "orange"];
-  var masterConfigArray=[];
-  for (var i = 0; i < 4; i++) {
-    var randomNum = Math.floor((Math.random() * 6));
-    masterConfigArray.push(colorArray[randomNum]);
+  switch (difficultySetting) {
+    case "Easy":
+      gridSize = 11;
+      var colorArray = ["red", "green", "blue", "yellow"];
+      var masterConfigArray=[];
+      var decreasingColorOptions = 4
+      for (var i = 0; i < 4; i++) {
+        var randomNum = Math.floor((Math.random() * decreasingColorOptions));
+        masterConfigArray.push(colorArray[randomNum]);
+        colorArray.splice(randomNum,1);
+        decreasingColorOptions -= 1;
+      }
+      return (masterConfigArray);
+      break;
+    case "Normal":
+      gridSize = 11
+      var colorArray = ["red", "green", "blue", "yellow", "purple", "orange"];
+      var masterConfigArray=[];
+      for (var i = 0; i < 4; i++) {
+        var randomNum = Math.floor((Math.random() * 6));
+        masterConfigArray.push(colorArray[randomNum]);
+      }
+      return (masterConfigArray);
+      break;
+    case "Master":
+      gridSize = 7;
+      var colorArray = ["red", "green", "blue", "yellow", "purple", "orange"];
+      var masterConfigArray=[];
+      for (var i = 0; i < 4; i++) {
+        var randomNum = Math.floor((Math.random() * 6));
+        masterConfigArray.push(colorArray[randomNum]);
+      }
+      return (masterConfigArray);
+      break;
+    default:
+
   }
-  return (masterConfigArray);
+
 }
+// END NEW DIFFICULTY SETTINGS CODE
 
 // Checks user guess for exact match against master configuration. Returns number of exact matches.
 function exactMatch(array1, array2, tempPlayerGuess, tempMasterConfig)  {
@@ -44,9 +88,10 @@ function colorMatch(array1, array2) {
 }
 
 function Mastermind() {
+  this.gameDifficulty = "";
   this.playerGuess = [];
   this.tempPlayerGuess = [];
-  this.tempMasterConfig = []
+  this.tempMasterConfig = [];
   this.tempBlackPeg = 0;
   this.tempWhitePeg = 0;
   this.currentTurn = 0;
@@ -78,19 +123,8 @@ Mastermind.prototype.pegResult = function(){
 
 
 // User Interface Logic
-var gameArray = []
-
 $(document).ready(function(){
 
-var gridSize = 11;
-// EXPERIMENTAL FEATURE TO DYNAMICALLY BUILD THE BOARD BASED
-//
-//
-//   var gameBoardHTML = "<div class='row'>" + buildTheBoard() + "<div class='pegResult' class='row'><div class='col-md-1'><div id='peg" + ROW# + "-" + PEG# "' class='pegCircle'></div><div id='peg0-1'class='pegCircle'></div></div><div class='col-md-1'><div id='peg0-2'class='pegCircle'></div><div id='peg0-3'class='pegCircle'></div></div></div></div>";
-//
-//   var totalRows = 2;
-//   var rowCount = 0;
-//
   function buildTheBoard() {
     var tempHTML = ""
     for(var i=gridSize; i >= 0; i--) {
@@ -99,42 +133,22 @@ var gridSize = 11;
     return(tempHTML);
   }
 
-
-
-
-  $("#buildTheBoard").html(buildTheBoard());
-
-
-
-
-
-
-
-
-
-
 // END EXPERIMENTAL SECTION
-
-
-
-
-
 
   var seconds = 1;
 
+  var gameTimer = setInterval(function() {
+    seconds += .01;
+    $("#playTimer").text(seconds.toFixed(2));
 
-  // var gameTimer = setInterval(function() {
-  //   seconds += .01;
-  //   $("#playTimer").text(seconds.toFixed(2));
-  //
-  //   if(seconds > 10) {
-  //   $("#playTimer").css("color", "red");
-  //   }
-  //
-  //   if(seconds > 100) {
-  //     clearInterval(gameTimer);
-  //   }
-  // }, 10);
+    if(seconds > 10) {
+    $("#playTimer").css("color", "red");
+    }
+
+    if(seconds > 100) {
+      clearInterval(gameTimer);
+    }
+  }, 10);
 
   function resetGame() {
     for ( var i= 0; i < 12; i++){
@@ -152,8 +166,6 @@ var gridSize = 11;
     mastermind.currentTurn = 0;
   }
 
-
-
   $("#resetGame").click(function(event){
     event.preventDefault();
     resetGame();
@@ -166,7 +178,6 @@ var gridSize = 11;
       $("button.colors").prop("disabled",true);
     }
     mastermind.playerGuess.push(mastermind.masterConfig[(mastermind.playerGuess.length)]);
-
   });
 
   $("#start-button").click(function(event){
@@ -174,12 +185,11 @@ var gridSize = 11;
     $("#start-button").hide();
     $("h1").removeClass("marginTop");
     $("#game").slideDown(1500);
-
+    $("#buildTheBoard").html(buildTheBoard());
   });
 
 
   $("form#buttons").on("click", "button", function(){
-    console.log(this.value);
     $("#stagingBoard-" + mastermind.playerGuess.length).css("background-color", this.value);
     if (mastermind.playerGuess.length >= 3) {
       $("button.colors").prop("disabled",true);
@@ -201,7 +211,6 @@ var gridSize = 11;
       $("#stagingBoard-" + i).css("background-color", "gray");
     }
     mastermind.winCheck();
-    console.log(mastermind.winCheck());
     for (var i = 0; i < mastermind.tempBlackPeg; i++){
       $("#peg" + mastermind.currentTurn + "-" + i).addClass("blackPeg");
     }
@@ -211,6 +220,7 @@ var gridSize = 11;
     mastermind.endTurn();
    }
  });
+
   $(".refresh-btn").click(function(){
     resetGame();
     $("#win-modal").hide();
@@ -225,4 +235,5 @@ var gridSize = 11;
       $("#stagingBoard-" + i).css("background-color", "gray");
     }
   });
+
 });
