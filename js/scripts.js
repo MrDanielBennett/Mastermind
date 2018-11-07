@@ -1,8 +1,4 @@
 // Business Logic
-
-
-
-
 var mastermind = new Mastermind();
 
 function Mastermind() {
@@ -21,7 +17,6 @@ Mastermind.prototype.winCheck = function(){
       $("#win-modal").show();
     }else if (this.currentTurn === 11) {
       $("#lose-modal").show();
-      $("#game").hide();
     }
 }
 
