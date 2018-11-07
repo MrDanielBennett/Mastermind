@@ -99,7 +99,7 @@ $(document).ready(function(){
 //
   function buildTheBoard() {
     var tempHTML = ""
-    for(var i=11; i >= 0; i--) {
+    for(var i=7; i >= 0; i--) {
       tempHTML += "<div class='row'><div id='" + i + "-0'class='emptyCircle'></div><div id='" + i + "-1'class='emptyCircle'></div><div id='" + i + "-2'class='emptyCircle'></div><div id='" + i + "-3'class='emptyCircle'></div><div id='pegResult' class='row'><div class='col-md-1'><div id='peg" + i + "-0'class='pegCircle'></div><div id='peg" + i + "-1'class='pegCircle'></div></div><div class='col-md-1'><div id='peg" + i + "-2' class='pegCircle'></div><div id='peg" + i + "-3' class='pegCircle'></div></div></div></div>"
     }
     return(tempHTML);
