@@ -136,6 +136,10 @@ body {
   width: 600px;
 }
 
+.rowNumber {
+  display: inline-block; 
+}
+
 .emptyCircle {
   margin: 5px;
   background-color: gray;
