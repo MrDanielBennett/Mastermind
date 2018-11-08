@@ -3,17 +3,31 @@ var difficultySetting;
 var mastermind = new Mastermind();
 var gridSize;
 var colorOptionNumber;
-// function masterConfiguration() {
-//   var colorArray = ["red", "green", "blue", "yellow", "purple", "orange"];
-//   var masterConfigArray=[];
-//   for (var i = 0; i < 4; i++) {
-//     var randomNum = Math.floor((Math.random() * 6));
-//     masterConfigArray.push(colorArray[randomNum]);
-//   }
-//   return (masterConfigArray);
-// }
+var seconds;
 
-// NEW CODE. ONLY UNCOMMENT WHEN EASY/NORMAL/MASTER DIFFICULTY MODES ARE AVAILABLE
+
+function gameTimer(time) {
+  $("#timer").css("color", "#A9A9A9");
+  seconds = time;
+  var gametimer = setInterval(function() {
+    seconds -= .01;
+    $("#timer").text(seconds.toFixed(1));
+
+    if(seconds < 60) {
+      $("#timer").css("color", "red");
+    }
+
+    if(seconds <= 0 || mastermind.youWonStatus === true) {
+      console.log("Your seconds reset didn't work, but this did.");
+      clearInterval(gametimer);
+      if (difficultySetting === "hard") {
+        $("#lose-modal").show();
+      }
+    }
+  }, 10);
+}
+
+
 function masterConfiguration() {
   switch (difficultySetting) {
     case "easy":
@@ -53,11 +67,8 @@ function masterConfiguration() {
       return (masterConfigArray);
       break;
     default:
-
   }
-
 }
-// END NEW DIFFICULTY SETTINGS CODE
 
 // Checks user guess for exact match against master configuration. Returns number of exact matches.
 function exactMatch(array1, array2, tempPlayerGuess, tempMasterConfig)  {
@@ -99,9 +110,9 @@ function Mastermind() {
   this.tempBlackPeg = 0;
   this.tempWhitePeg = 0;
   this.currentTurn = 0;
+  this.youWonStatus = false;
   // this.masterConfig = masterConfiguration();
 }
-
 
 Mastermind.prototype.endTurn = function() {
   this.playerGuess = [];
@@ -109,27 +120,28 @@ Mastermind.prototype.endTurn = function() {
   this.tempMasterConfig = [];
   this.tempBlackPeg = 0;
   this.tempWhitePeg = 0;
-  this.currentTurn += 1
+  this.currentTurn += 1;
 }
 
 Mastermind.prototype.winCheck = function(){
-  if (difficultySetting === "hard") {
-    if (this.tempBlackPeg === 4){
-      $("#win-modal").show();
-    }else if (this.currentTurn === 7) {
-      $("#lose-modal").show();
-    }
-  }
   if (this.tempBlackPeg === 4){
     $("#win-modal").show();
-  }else if (this.currentTurn === 11) {
-    $("#lose-modal").show();
+    mastermind.youWonStatus = true;
+  } else {
+    if (difficultySetting === "hard") {
+      if (this.currentTurn === 7) {
+        $("#lose-modal").show();
+        mastermind.youWonStatus = true;
+      }
+    } else if (this.currentTurn === 11){
+      $("#lose-modal").show();
+    }
   }
 }
 
 Mastermind.prototype.pegResult = function(){
-  console.log(exactMatch(this.playerGuess, this.masterConfig, this.tempPlayerGuess, this.tempMasterConfig));
-  console.log(colorMatch(this.tempPlayerGuess, this.tempMasterConfig));
+  exactMatch(this.playerGuess, this.masterConfig, this.tempPlayerGuess, this.tempMasterConfig);
+  colorMatch(this.tempPlayerGuess, this.tempMasterConfig);
 }
 
 
@@ -153,28 +165,6 @@ $(document).ready(function(){
     return("<form id='buttons'>" + tempHTML + "</form>");
   }
 
-// END EXPERIMENTAL SECTION
-
-
-
-  function gameTimer() {
-    var seconds = 120;
-    var gametimer = setInterval(function() {
-    seconds -= .01;
-    $("#timer").text(seconds.toFixed(1));
-
-    if(seconds < 60) {
-    $("#timer").css("color", "red");
-    }
-
-    if(seconds <= 0) {
-      clearInterval(gametimer);
-      if (difficultySetting === "hard") {
-        $("#lose-modal").show();
-      }
-    }
-  }, 10);
-}
 
   function resetGame() {
     for ( var i= 0; i < 12; i++){
@@ -183,6 +173,7 @@ $(document).ready(function(){
         $("#peg" + i + "-" + z).removeClass("whitePeg blackPeg");
       }
     }
+    mastermind.youWonStatus = false;
     mastermind.playerGuess = [];
     mastermind.masterConfig = masterConfiguration();
     $("button.colors").prop("disabled",false);
@@ -191,26 +182,47 @@ $(document).ready(function(){
     }
     mastermind.currentTurn = 0;
     $("#cheatButton").css("color", "white");
-    gameTimer();
+    gameTimer(120);
     $("#timer").show();
   }
 
-  $("#resetGame").click(function(event){
-    event.preventDefault();
-    resetGame();
-  });
-
+// Listens to game difficutly buttons on landing screen. Passes value of difficulty button to variable and intializes new game based on passed parameters.
   $(".difficultyButtons").on("click", "button", function(){
     $(".difficultyButtons").hide();
     $("h1").removeClass("marginTop");
     difficultySetting = this.id;
-    console.log(difficultySetting);
     mastermind.masterConfig = masterConfiguration();
     $("#colorButtonChoiceBuilder").html(buildTheColorButtons());
     $("#buildTheBoard").html(buildTheBoard());
     $("#game").slideDown(1500);
+    gameTimer(120);
+    if (difficultySetting === "easy" || difficultySetting === "medium"){
+      $("#timer").hide();
+    }
   });
 
+
+// Listens to player color buttons. When clicked, passes color value to lower guess builder row
+  $("#colorButtonChoiceBuilder").on("click", "button", function(){
+    console.log("COLOR BUTTON CLICK");
+    $("#stagingBoard-" + mastermind.playerGuess.length).css("background-color", this.value);
+    if (mastermind.playerGuess.length >= 3) {
+      $("button.colors").prop("disabled",true);
+    }
+    mastermind.playerGuess.push(this.value);
+  });
+
+  // Listens to player clear button. When clicked, clears temporary player guess array and sets color guess row to gray values
+  $("#clear").click(function(){
+    mastermind.playerGuess = [];
+    $("button.colors").prop("disabled",false);
+    for (let i =0; i < 4; i ++){
+      $("#stagingBoard-" + i).css("background-color", "gray");
+    }
+    $("#cheatButton").css("color", "white");
+  });
+
+  // Listens to SECRET player cheat button hidden in the "E" of game title. When clicked, passes the correct color value for the player guess color row position into their guess builder.
   $("#cheatButton").click(function(event){
     event.preventDefault();
     $("#stagingBoard-" + mastermind.playerGuess.length).css("background-color", mastermind.masterConfig[(mastermind.playerGuess.length)]);
@@ -221,31 +233,7 @@ $(document).ready(function(){
     $("#cheatButton").css("color", "#CBA72D");
   });
 
-  $(".difficultyButtons").on("click", "button", function(){
-    $(".difficultyButtons").hide();
-    $("h1").removeClass("marginTop");
-    difficultySetting = this.id;
-    console.log(difficultySetting);
-    mastermind.masterConfig = masterConfiguration();
-    $("#game").slideDown(1500);
-    $("#buildTheBoard").html(buildTheBoard());
-    gameTimer();
-    if (difficultySetting === "easy" || difficultySetting === "medium"){
-      $("#timer").hide();
-    }
-  });
-
-// bug area
-  $("#colorButtonChoiceBuilder").on("click", "button", function(){
-    console.log("COLOR BUTTON CLICK");
-    $("#stagingBoard-" + mastermind.playerGuess.length).css("background-color", this.value);
-    if (mastermind.playerGuess.length >= 3) {
-      $("button.colors").prop("disabled",true);
-    }
-    mastermind.playerGuess.push(this.value);
-  });
-// end bug area
-
+// Listens to player submit button. When clicked, checks for complete guess length (4). If ok, peforms comparison checks against master config, then clears guess builder row to gray values.
   $("#submit").click(function(){
     if (mastermind.playerGuess.length < 4){
     $("#alert-modal").show();
@@ -271,24 +259,27 @@ $(document).ready(function(){
  });
 
 
- $("#difficultyModal").on("click", "button", function(){
-   resetGame();
-   difficultySetting = this.value;
-   mastermind.masterConfig = masterConfiguration();
-   console.log("CLICKCLICKCLICK");
-   console.log("here's the id of the thing you clicked on: " + this.value);
-   console.log("your value of this button is " + difficultySetting);
-   $("#colorButtonChoiceBuilder").html(buildTheColorButtons());
-   $("#buildTheBoard").html(buildTheBoard());
-   $("#settings-modal").hide();
- });
+ // $("#difficultyModal").on("click", "button", function(){
+ //   resetGame();
+ //   difficultySetting = this.value;
+ //   mastermind.masterConfig = masterConfiguration();
+ //   console.log("CLICKCLICKCLICK");
+ //   console.log("here's the id of the thing you clicked on: " + this.value);
+ //   console.log("your value of this button is " + difficultySetting);
+ //   $("#colorButtonChoiceBuilder").html(buildTheColorButtons());
+ //   $("#buildTheBoard").html(buildTheBoard());
+ //   $("#settings-modal").hide();
+ // });
 
 
-
+// Listens to modal after end game scenario.
   $(".refresh-btn").click(function(){
     resetGame();
     $("#win-modal").hide();
     $("#lose-modal").hide();
+    if (difficultySetting !== "hard"){
+      $("#timer").hide();
+    }
   });
   $(".close-modal").click(function(){
     $("#alert-modal").hide();
@@ -302,15 +293,5 @@ $(document).ready(function(){
 
   });
 
-
-  $("#clear").click(function(){
-    mastermind.playerGuess = [];
-    $("button.colors").prop("disabled",false);
-    for (let i =0; i < 4; i ++){
-      $("#stagingBoard-" + i).css("background-color", "gray");
-    }
-    $("#cheatButton").css("color", "white");
-
-  });
 
 });
