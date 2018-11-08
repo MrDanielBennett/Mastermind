@@ -134,6 +134,15 @@ $(document).ready(function(){
     return(tempHTML);
   }
 
+  function buildTheColorButtons() {
+    var tempHTML = "";
+    var colorArray = ["red", "green", "blue", "yellow", "purple", "orange"];
+    for(var i = 0; i < 3; i++) {
+      tempHTML += "<button type='button' class='colors' id='" + colorArray[i] + "' value='" + colorArray[i] + "'></button>"
+    }
+    return("<form id='buttons'>" + tempHTML + "</form>");
+  }
+
 // END EXPERIMENTAL SECTION
 
   var seconds = 1;
@@ -191,6 +200,7 @@ $(document).ready(function(){
     mastermind.masterConfig = masterConfiguration();
     $("#game").slideDown(1500);
     $("#buildTheBoard").html(buildTheBoard());
+    $("#colorButtonChoiceBuilder").html(buildTheColorButtons());
   });
 
 
