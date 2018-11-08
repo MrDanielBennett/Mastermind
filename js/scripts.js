@@ -296,10 +296,6 @@ $(document).ready(function(){
   });
 
 
-
-
-
-
   $("#clear").click(function(){
     mastermind.playerGuess = [];
     $("button.colors").prop("disabled",false);
