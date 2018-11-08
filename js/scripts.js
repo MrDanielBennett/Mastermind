@@ -220,7 +220,6 @@ $(document).ready(function(){
     } else {
     mastermind.pegResult();
     $("button.colors").prop("disabled",false);
-
     for ( var i= 0; i <mastermind.playerGuess.length; i++){
         $("#" + mastermind.currentTurn + "-" + i).css("background-color", mastermind.playerGuess[i]);
     }
@@ -246,22 +245,24 @@ $(document).ready(function(){
  });
 
 
-
   $(".refresh-btn").click(function(){
     resetGame();
     $("#win-modal").hide();
     $("#lose-modal").hide();
+    $("#timer").hide();
   });
+
   $(".close-modal").click(function(){
     $("#alert-modal").hide();
     $("#settings-modal").hide();
   });
+
   $("#info-icon").hover(function(){
     $("#info-modal").toggle();
   });
+
   $("#settings-icon").click(function(){
     $("#settings-modal").show();
-
   });
 
   $("#clear").click(function(){
@@ -271,7 +272,6 @@ $(document).ready(function(){
       $("#stagingBoard-" + i).css("background-color", "gray");
     }
     $("#cheatButton").css("color", "white");
-
   });
 
 });
