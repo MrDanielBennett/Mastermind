@@ -19,7 +19,12 @@ h1 {
 }
 
 .marginTop {
-  git: 25%;
+  margin-top: 25%;
+}
+
+.difficultyButtons{
+  margin-top: 0px;
+  text-align: center;
 }
 
 body {
@@ -209,9 +214,7 @@ body {
 .blackPeg {
   background-color: #FFD700;
 }
-.difficultyButtons{
-  text-align: center;
-}
+
 
 #board {
   background-color: brown;
