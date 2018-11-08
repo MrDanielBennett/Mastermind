@@ -136,20 +136,26 @@ $(document).ready(function(){
 
 // END EXPERIMENTAL SECTION
 
-  var seconds = 1;
 
-  var gameTimer = setInterval(function() {
-    seconds += .01;
+
+  function gameTimer() {
+    var seconds = 120;
+    var gametimer = setInterval(function() {
+    seconds -= .01;
     $("#timer").text(seconds.toFixed(1));
 
-    if(seconds > 10) {
+    if(seconds < 60) {
     $("#timer").css("color", "red");
     }
 
-    if(seconds > 100) {
-      clearInterval(gameTimer);
+    if(seconds <= 0) {
+      clearInterval(gametimer);
+      if (difficultySetting === "hard") {
+        $("#lose-modal").show();
+      }
     }
   }, 10);
+}
 
   function resetGame() {
     for ( var i= 0; i < 12; i++){
@@ -166,6 +172,8 @@ $(document).ready(function(){
     }
     mastermind.currentTurn = 0;
     $("#cheatButton").css("color", "white");
+    gameTimer();
+    $("#timer").show();
   }
 
   $("#resetGame").click(function(event){
@@ -191,6 +199,10 @@ $(document).ready(function(){
     mastermind.masterConfig = masterConfiguration();
     $("#game").slideDown(1500);
     $("#buildTheBoard").html(buildTheBoard());
+    gameTimer();
+    if (difficultySetting === "easy" || difficultySetting === "medium"){
+      $("#timer").hide();
+    }
   });
 
 
@@ -243,13 +255,14 @@ $(document).ready(function(){
   $(".close-modal").click(function(){
     $("#alert-modal").hide();
     $("#settings-modal").hide();
-  })
+  });
   $("#info-icon").hover(function(){
     $("#info-modal").toggle();
-  })
+  });
   $("#settings-icon").click(function(){
     $("#settings-modal").show();
-  })
+
+  });
 
   $("#clear").click(function(){
     mastermind.playerGuess = [];
@@ -258,6 +271,7 @@ $(document).ready(function(){
       $("#stagingBoard-" + i).css("background-color", "gray");
     }
     $("#cheatButton").css("color", "white");
+
   });
 
 });
