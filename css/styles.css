@@ -26,10 +26,13 @@ body {
   background-color: black;
 }
 
-#buttons{
-  margin-top: 20px;
+#start-screen {
+  margin-top: 25%;
+  text-align: center;
 }
-
+#game {
+  display: none;
+}
 #timer {
   font-family: metroregular;
   color: 	#A9A9A9;
@@ -37,6 +40,14 @@ body {
   text-align: left;
 }
 
+.gameBoard {
+  margin-left: 23.5%;
+  background-color: lightgray;
+  text-align: center;
+  padding: 40px;
+  border-radius: 20px;
+  width: 600px;
+}
 .stagingButton{
   width: 100px;
   font-size: 20px;
@@ -58,6 +69,37 @@ body {
   box-shadow: 2px 2px black;
 }
 
+#buttons{
+  margin-top: 20px;
+}
+#red {
+  background-color: red;
+}
+#green {
+  background-color: green;
+}
+#blue {
+  background-color: blue;
+}
+#yellow {
+  background-color: yellow;
+}
+#purple {
+  background-color: purple;
+}
+#orange {
+  background-color: orange;
+}
+
+.colors{
+  border: 1px solid darkgray;
+  margin-top: 10px;
+  box-shadow: 1px 1px gray;
+  height: 50px;
+  width: 50px;
+  border-radius: 100%;
+}
+
 .startGame {
   display: inline-block;
   background-color: blue;
@@ -74,13 +116,6 @@ body {
   background-color: #CBA72D;
 }
 
-#start-screen {
-  margin-top: 25%;
-  text-align: center;
-}
-#game {
-  display: none;
-}
 #lose-modal{
   display: none;
   position: fixed;
@@ -104,56 +139,7 @@ body {
 .modal-footer{
   background-color: ;
 }
-#red {
-  background-color: red;
-  height: 50px;
-  width: 50px;
-  border-radius: 100%;
-}
-#green {
-  background-color: green;
-  height: 50px;
-  width: 50px;
-  border-radius: 100%;
-}
-#blue {
-  background-color: blue;
-  height: 50px;
-  width: 50px;
-  border-radius: 100%;
-}
-#yellow {
-  background-color: yellow;
-  height: 50px;
-  width: 50px;
-  border-radius: 100%;
-}
-#purple {
-  background-color: purple;
-  height: 50px;
-  width: 50px;
-  border-radius: 100%;
-}
-#orange {
-  background-color: orange;
-  height: 50px;
-  width: 50px;
-  border-radius: 100%;
-}
-.colors{
-  border: 1px solid darkgray;
-  margin-top: 10px;
-  box-shadow: 1px 1px gray;
-}
 
-.gameBoard {
-  margin-left: 23.5%;
-  background-color: lightgray;
-  text-align: center;
-  padding: 40px;
-  border-radius: 20px;
-  width: 600px;
-}
 
 .rowNumber {
   display: inline-block;
@@ -164,16 +150,6 @@ body {
   margin-top: 17px;
 }
 
-.emptyCircle {
-  margin: 5px;
-  background-color: gray;
-  height: 50px;
-  width: 50px;
-  border-radius: 100%;
-  display: inline-block;
-  box-shadow: 1px 1px black;
-  text-align: right;
-}
 
 #pegResult {
   display: inline-block;
@@ -206,6 +182,16 @@ body {
   border-radius: 10px;
 }
 
+.emptyCircle {
+  margin: 5px;
+  background-color: gray;
+  height: 50px;
+  width: 50px;
+  border-radius: 100%;
+  display: inline-block;
+  box-shadow: 1px 1px black;
+  text-align: right;
+}
 .pegCircle {
   background-color: #484848;
   height: 15px;
