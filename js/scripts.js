@@ -1,51 +1,60 @@
 // Business Logic
+var difficultySetting;
 var mastermind = new Mastermind();
+var gridSize;
+// function masterConfiguration() {
+//   var colorArray = ["red", "green", "blue", "yellow", "purple", "orange"];
+//   var masterConfigArray=[];
+//   for (var i = 0; i < 4; i++) {
+//     var randomNum = Math.floor((Math.random() * 6));
+//     masterConfigArray.push(colorArray[randomNum]);
+//   }
+//   return (masterConfigArray);
+// }
 
-function Mastermind() {
-  this.currentTurn = 0;
-  this.playerGuess = [];
-  this.tempPlayerGuess = [];
-  this.tempBlackPeg = 0;
-  this.tempWhitePeg = 0;
-  this.masterConfig = masterConfiguration();
-  this.tempMasterConfig = []
-}
-
-Mastermind.prototype.winCheck = function(){
-
-    if (this.tempBlackPeg === 4){
-      $("#win-modal").show();
-    }else if (this.currentTurn === 11) {
-      $("#lose-modal").show();
-    }
-}
-
-Mastermind.prototype.endTurn = function() {
-  this.playerGuess = [];
-  this.tempPlayerGuess = [];
-  this.tempMasterConfig = [];
-  this.tempBlackPeg = 0;
-  this.tempWhitePeg = 0;
-  this.currentTurn += 1
-}
-
+// NEW CODE. ONLY UNCOMMENT WHEN EASY/NORMAL/MASTER DIFFICULTY MODES ARE AVAILABLE
 function masterConfiguration() {
-  var color = ["red", "green", "blue", "yellow", "purple", "orange"];
-  var c;
-  var masterConfig=[];
-  for (c=1; c<=4; ++c)
-  {
-    var i = Math.floor((Math.random() * 6));
-    masterConfig.push(color[i]);
-    color[i] = color[4-c];
-  }
-  return (masterConfig);
-}
+  switch (difficultySetting) {
+    case "easy":
+      gridSize = 11;
+      var colorArray = ["red", "green", "blue", "yellow"];
+      var masterConfigArray=[];
+      var decreasingColorOptions = 4
+      for (var i = 0; i < 4; i++) {
+        var randomNum = Math.floor((Math.random() * decreasingColorOptions));
+        masterConfigArray.push(colorArray[randomNum]);
+        colorArray.splice(randomNum,1);
+        decreasingColorOptions -= 1;
+      }
+      return (masterConfigArray);
+      break;
+    case "medium":
+    console.log("MEDIUM CHOSEN");
+      gridSize = 11
+      var colorArray = ["red", "green", "blue", "yellow", "purple", "orange"];
+      var masterConfigArray=[];
+      for (var i = 0; i < 4; i++) {
+        var randomNum = Math.floor((Math.random() * 6));
+        masterConfigArray.push(colorArray[randomNum]);
+      }
+      return (masterConfigArray);
+      break;
+    case "hard":
+      gridSize = 7;
+      var colorArray = ["red", "green", "blue", "yellow", "purple", "orange"];
+      var masterConfigArray=[];
+      for (var i = 0; i < 4; i++) {
+        var randomNum = Math.floor((Math.random() * 6));
+        masterConfigArray.push(colorArray[randomNum]);
+      }
+      return (masterConfigArray);
+      break;
+    default:
 
-Mastermind.prototype.pegResult = function(){
-  console.log(exactMatch(this.playerGuess, this.masterConfig, this.tempPlayerGuess, this.tempMasterConfig));
-  console.log(colorMatch(this.tempPlayerGuess, this.tempMasterConfig));
+  }
+
 }
+// END NEW DIFFICULTY SETTINGS CODE
 
 // Checks user guess for exact match against master configuration. Returns number of exact matches.
 function exactMatch(array1, array2, tempPlayerGuess, tempMasterConfig)  {
@@ -74,25 +83,49 @@ function colorMatch(array1, array2) {
       colorMatch += 1;
       tempMasterArray.splice(splicePoint,1,'colormatch');
     }
- });
- mastermind.tempWhitePeg = colorMatch;
- return colorMatch;
+  });
+  mastermind.tempWhitePeg = colorMatch;
+  return colorMatch;
 }
 
-// User Interface Logic
-var gameArray = []
+function Mastermind() {
+  this.gameDifficulty = "";
+  this.playerGuess = [];
+  this.tempPlayerGuess = [];
+  this.tempMasterConfig = [];
+  this.tempBlackPeg = 0;
+  this.tempWhitePeg = 0;
+  this.currentTurn = 0;
+  // this.masterConfig = masterConfiguration();
+}
 
+
+Mastermind.prototype.endTurn = function() {
+  this.playerGuess = [];
+  this.tempPlayerGuess = [];
+  this.tempMasterConfig = [];
+  this.tempBlackPeg = 0;
+  this.tempWhitePeg = 0;
+  this.currentTurn += 1
+}
+
+Mastermind.prototype.winCheck = function(){
+  if (this.tempBlackPeg === 4){
+    $("#win-modal").show();
+  }else if (this.currentTurn === 11) {
+    $("#lose-modal").show();
+  }
+}
+
+Mastermind.prototype.pegResult = function(){
+  console.log(exactMatch(this.playerGuess, this.masterConfig, this.tempPlayerGuess, this.tempMasterConfig));
+  console.log(colorMatch(this.tempPlayerGuess, this.tempMasterConfig));
+}
+
+
+// User Interface Logic
 $(document).ready(function(){
 
-var gridSize = 11;
-// EXPERIMENTAL FEATURE TO DYNAMICALLY BUILD THE BOARD BASED
-//
-//
-//   var gameBoardHTML = "<div class='row'>" + buildTheBoard() + "<div class='pegResult' class='row'><div class='col-md-1'><div id='peg" + ROW# + "-" + PEG# "' class='pegCircle'></div><div id='peg0-1'class='pegCircle'></div></div><div class='col-md-1'><div id='peg0-2'class='pegCircle'></div><div id='peg0-3'class='pegCircle'></div></div></div></div>";
-//
-//   var totalRows = 2;
-//   var rowCount = 0;
-//
   function buildTheBoard() {
     var tempHTML = ""
     for(var i= gridSize; i >= 0; i--) {
@@ -101,42 +134,22 @@ var gridSize = 11;
     return(tempHTML);
   }
 
-
-
-
-  $("#buildTheBoard").html(buildTheBoard());
-
-
-
-
-
-
-
-
-
-
 // END EXPERIMENTAL SECTION
 
+  var seconds = 1;
 
+  var gameTimer = setInterval(function() {
+    seconds += .01;
+    $("#timer").text(seconds.toFixed(1));
 
+    if(seconds > 10) {
+    $("#timer").css("color", "red");
+    }
 
-
-
-  // var seconds = 1;
-
-
-  // var gameTimer = setInterval(function() {
-  //   seconds += .01;
-  //   $("#playTimer").text(seconds.toFixed(2));
-  //
-  //   if(seconds > 10) {
-  //   $("#playTimer").css("color", "red");
-  //   }
-  //
-  //   if(seconds > 100) {
-  //     clearInterval(gameTimer);
-  //   }
-  // }, 10);
+    if(seconds > 100) {
+      clearInterval(gameTimer);
+    }
+  }, 10);
 
   function resetGame() {
     for ( var i= 0; i < 12; i++){
@@ -154,8 +167,6 @@ var gridSize = 11;
     mastermind.currentTurn = 0;
     $("#cheatButton").css("color", "white");
   }
-
-
 
   $("#resetGame").click(function(event){
     event.preventDefault();
@@ -175,13 +186,15 @@ var gridSize = 11;
   $(".difficultyButtons").on("click", "button", function(){
     $(".difficultyButtons").hide();
     $("h1").removeClass("marginTop");
-    var difficulty = this.id;
+    difficultySetting = this.id;
+    console.log(difficultySetting);
+    mastermind.masterConfig = masterConfiguration();
     $("#game").slideDown(1500);
+    $("#buildTheBoard").html(buildTheBoard());
   });
 
 
   $("form#buttons").on("click", "button", function(){
-    console.log(this.value);
     $("#stagingBoard-" + mastermind.playerGuess.length).css("background-color", this.value);
     if (mastermind.playerGuess.length >= 3) {
       $("button.colors").prop("disabled",true);
@@ -203,7 +216,6 @@ var gridSize = 11;
       $("#stagingBoard-" + i).css("background-color", "gray");
     }
     mastermind.winCheck();
-    console.log(mastermind.winCheck());
     for (var i = 0; i < mastermind.tempBlackPeg; i++){
       $("#peg" + mastermind.currentTurn + "-" + i).addClass("blackPeg");
     }
@@ -213,6 +225,16 @@ var gridSize = 11;
     mastermind.endTurn();
    }
  });
+
+
+ $("#difficultyModal").on("click", "button", function(){
+   difficultySetting = this.id;
+   console.log("CLICKCLICKCLICK");
+   mastermind.masterConfig = masterConfiguration();
+ });
+
+
+
   $(".refresh-btn").click(function(){
     resetGame();
     $("#win-modal").hide();
@@ -237,4 +259,5 @@ var gridSize = 11;
     }
     $("#cheatButton").css("color", "white");
   });
+
 });
