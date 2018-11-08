@@ -1,5 +1,5 @@
 // Business Logic
-var difficultySetting = "Easy";
+var difficultySetting;
 var mastermind = new Mastermind();
 var gridSize;
 // function masterConfiguration() {
@@ -15,7 +15,7 @@ var gridSize;
 // NEW CODE. ONLY UNCOMMENT WHEN EASY/NORMAL/MASTER DIFFICULTY MODES ARE AVAILABLE
 function masterConfiguration() {
   switch (difficultySetting) {
-    case "Easy":
+    case "easy":
       gridSize = 11;
       var colorArray = ["red", "green", "blue", "yellow"];
       var masterConfigArray=[];
@@ -28,7 +28,8 @@ function masterConfiguration() {
       }
       return (masterConfigArray);
       break;
-    case "Normal":
+    case "medium":
+    console.log("MEDIUM CHOSEN");
       gridSize = 11
       var colorArray = ["red", "green", "blue", "yellow", "purple", "orange"];
       var masterConfigArray=[];
@@ -38,7 +39,7 @@ function masterConfiguration() {
       }
       return (masterConfigArray);
       break;
-    case "Master":
+    case "hard":
       gridSize = 7;
       var colorArray = ["red", "green", "blue", "yellow", "purple", "orange"];
       var masterConfigArray=[];
@@ -95,7 +96,7 @@ function Mastermind() {
   this.tempBlackPeg = 0;
   this.tempWhitePeg = 0;
   this.currentTurn = 0;
-  this.masterConfig = masterConfiguration();
+  // this.masterConfig = masterConfiguration();
 }
 
 
@@ -139,10 +140,10 @@ $(document).ready(function(){
 
   var gameTimer = setInterval(function() {
     seconds += .01;
-    $("#playTimer").text(seconds.toFixed(2));
+    $("#timer").text(seconds.toFixed(1));
 
     if(seconds > 10) {
-    $("#playTimer").css("color", "red");
+    $("#timer").css("color", "red");
     }
 
     if(seconds > 100) {
@@ -185,7 +186,9 @@ $(document).ready(function(){
   $(".difficultyButtons").on("click", "button", function(){
     $(".difficultyButtons").hide();
     $("h1").removeClass("marginTop");
-    var difficulty = this.id;
+    difficultySetting = this.id;
+    console.log(difficultySetting);
+    mastermind.masterConfig = masterConfiguration();
     $("#game").slideDown(1500);
     $("#buildTheBoard").html(buildTheBoard());
   });
@@ -222,6 +225,15 @@ $(document).ready(function(){
     mastermind.endTurn();
    }
  });
+
+
+ $("#difficultyModal").on("click", "button", function(){
+   difficultySetting = this.id;
+   console.log("CLICKCLICKCLICK");
+   mastermind.masterConfig = masterConfiguration();
+ });
+
+
 
   $(".refresh-btn").click(function(){
     resetGame();
