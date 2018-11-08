@@ -113,6 +113,13 @@ Mastermind.prototype.endTurn = function() {
 }
 
 Mastermind.prototype.winCheck = function(){
+  if (difficultySetting === "hard") {
+    if (this.tempBlackPeg === 4){
+      $("#win-modal").show();
+    }else if (this.currentTurn === 7) {
+      $("#lose-modal").show();
+    }
+  }
   if (this.tempBlackPeg === 4){
     $("#win-modal").show();
   }else if (this.currentTurn === 11) {
