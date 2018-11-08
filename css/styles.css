@@ -135,6 +135,7 @@ body {
   left: 50%;
   transform: translate(-50%, -50%);
 }
+
 .modal-header{
   background-color: ;
 }
@@ -167,7 +168,6 @@ body {
   width: 85px;
 }
 
-/* jared's addition */
 .pegResult {
   display: inline-block;
   margin-left: 15px;
@@ -178,7 +178,6 @@ body {
   border-radius: 2px;
   width: 85px;
 }
-/* end addition */
 
 #stagingBoard {
   margin-top: 20px;
@@ -237,6 +236,11 @@ body {
   top: 50%;
   left: 50%;
   transform: translate(-50%, -50%);
+  font-size: 1.8em;
+}
+
+#info-modal h2{
+text-align: center;
 }
 #settings-modal{
   display: none;

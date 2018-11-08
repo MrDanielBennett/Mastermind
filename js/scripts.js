@@ -17,8 +17,11 @@ function gameTimer(time) {
       $("#timer").css("color", "red");
     }
 
-    if(seconds <= 0 || mastermind.youWonStatus === true) {
-      console.log("Your seconds reset didn't work, but this did.");
+    if(mastermind.youWonStatus === true) {
+      clearInterval(gametimer);
+    }
+
+    if(seconds <= 0) {
       clearInterval(gametimer);
       if (difficultySetting === "hard") {
         $("#lose-modal").show();
