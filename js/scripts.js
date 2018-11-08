@@ -244,9 +244,15 @@ $(document).ready(function(){
 
 
  $("#difficultyModal").on("click", "button", function(){
-   difficultySetting = this.id;
-   console.log("CLICKCLICKCLICK");
+   resetGame();
+   difficultySetting = this.value;
    mastermind.masterConfig = masterConfiguration();
+   console.log("CLICKCLICKCLICK");
+   console.log("here's the id of the thing you clicked on: " + this.value);
+   console.log("your value of this button is " + difficultySetting);
+   $("#colorButtonChoiceBuilder").html(buildTheColorButtons());
+   $("#buildTheBoard").html(buildTheBoard());
+   $("#settings-modal").hide();
  });
 
 
@@ -266,6 +272,11 @@ $(document).ready(function(){
   $("#settings-icon").click(function(){
     $("#settings-modal").show();
   })
+
+
+
+
+
 
   $("#clear").click(function(){
     mastermind.playerGuess = [];
