@@ -2,6 +2,7 @@
 var difficultySetting;
 var mastermind = new Mastermind();
 var gridSize;
+var colorOptionNumber;
 // function masterConfiguration() {
 //   var colorArray = ["red", "green", "blue", "yellow", "purple", "orange"];
 //   var masterConfigArray=[];
@@ -17,6 +18,7 @@ function masterConfiguration() {
   switch (difficultySetting) {
     case "easy":
       gridSize = 11;
+      colorOptionNumber = 4;
       var colorArray = ["red", "green", "blue", "yellow"];
       var masterConfigArray=[];
       var decreasingColorOptions = 4
@@ -29,8 +31,8 @@ function masterConfiguration() {
       return (masterConfigArray);
       break;
     case "medium":
-    console.log("MEDIUM CHOSEN");
       gridSize = 11
+      colorOptionNumber = 6;
       var colorArray = ["red", "green", "blue", "yellow", "purple", "orange"];
       var masterConfigArray=[];
       for (var i = 0; i < 4; i++) {
@@ -41,6 +43,7 @@ function masterConfiguration() {
       break;
     case "hard":
       gridSize = 7;
+      colorOptionNumber = 6;
       var colorArray = ["red", "green", "blue", "yellow", "purple", "orange"];
       var masterConfigArray=[];
       for (var i = 0; i < 4; i++) {
@@ -137,7 +140,7 @@ $(document).ready(function(){
   function buildTheColorButtons() {
     var tempHTML = "";
     var colorArray = ["red", "green", "blue", "yellow", "purple", "orange"];
-    for(var i = 0; i < 3; i++) {
+    for(var i = 0; i < colorOptionNumber; i++) {
       tempHTML += "<button type='button' class='colors' id='" + colorArray[i] + "' value='" + colorArray[i] + "'></button>"
     }
     return("<form id='buttons'>" + tempHTML + "</form>");
@@ -182,6 +185,17 @@ $(document).ready(function(){
     resetGame();
   });
 
+  $(".difficultyButtons").on("click", "button", function(){
+    $(".difficultyButtons").hide();
+    $("h1").removeClass("marginTop");
+    difficultySetting = this.id;
+    console.log(difficultySetting);
+    mastermind.masterConfig = masterConfiguration();
+    $("#colorButtonChoiceBuilder").html(buildTheColorButtons());
+    $("#buildTheBoard").html(buildTheBoard());
+    $("#game").slideDown(1500);
+  });
+
   $("#cheatButton").click(function(event){
     event.preventDefault();
     $("#stagingBoard-" + mastermind.playerGuess.length).css("background-color", mastermind.masterConfig[(mastermind.playerGuess.length)]);
@@ -192,25 +206,17 @@ $(document).ready(function(){
     $("#cheatButton").css("color", "#CBA72D");
   });
 
-  $(".difficultyButtons").on("click", "button", function(){
-    $(".difficultyButtons").hide();
-    $("h1").removeClass("marginTop");
-    difficultySetting = this.id;
-    console.log(difficultySetting);
-    mastermind.masterConfig = masterConfiguration();
-    $("#game").slideDown(1500);
-    $("#buildTheBoard").html(buildTheBoard());
-    $("#colorButtonChoiceBuilder").html(buildTheColorButtons());
-  });
 
-
-  $("form#buttons").on("click", "button", function(){
+// bug area
+  $("#colorButtonChoiceBuilder").on("click", "button", function(){
+    console.log("COLOR BUTTON CLICK");
     $("#stagingBoard-" + mastermind.playerGuess.length).css("background-color", this.value);
     if (mastermind.playerGuess.length >= 3) {
       $("button.colors").prop("disabled",true);
     }
     mastermind.playerGuess.push(this.value);
   });
+// end bug area
 
   $("#submit").click(function(){
     if (mastermind.playerGuess.length < 4){
